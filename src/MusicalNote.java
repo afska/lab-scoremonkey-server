@@ -122,6 +122,3 @@ public class MusicalNote
         return (Math.log(n) / Math.log(2));
     }
 }
-
-
-s
