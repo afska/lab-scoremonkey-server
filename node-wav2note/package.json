@@ -1,0 +1,10 @@
+{
+	"name": "wav2note",
+	"description": "An example that converts wav files to notes.",
+	"version": "1.0.0",
+	"dependencies": {
+		"detect-pitch": "*",
+		"ndarray": "*",
+		"ndarray-wav": "*"
+	}
+}
