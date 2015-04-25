@@ -3,7 +3,7 @@
   "description": "ScoreMonkey",
   "repository": {
     "type": "git",
-    "url": "git://github.com/rodri042/scoremonkey.git"
+    "url": "git://github.com/rodri042/scoremonkey-server.git"
   },
   "version": "0.0.1",
   "main": "main.js",

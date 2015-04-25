@@ -6,7 +6,6 @@ Slack: https://losborbotones.slack.com
 
 ## server
 
-#### ci:
 [![Build Status](https://semaphoreci.com/api/v1/projects/7f2c0aa5-872c-4170-8077-9f64bb5dfd5c/408337/badge.svg)](https://semaphoreci.com/rodri042/scoremonkey) 
 
 #### install:
