@@ -14,6 +14,6 @@ public class MusicalNoteTest {
         // Tests
         assertEquals("443Hz equivale a la nota 57 de MIDI", 57, tester.frequencyToNote(443));
         assertEquals("La nota 57 de MIDI equivale a un La (A) en la octava 4 (osea, A4)", "A 4", tester.noteToName(57));
-        assertEquals("La nota 57 de MIDI equivale a un La (A) en la octava 4 (osea, A4)", "C 1", tester.noteToName(12));
+        assertEquals("La nota 12 de MIDI equivale a un Do (C) en la octava 1 (osea, C1)", "C 1", tester.noteToName(12));
     }
 }
