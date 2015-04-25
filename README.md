@@ -14,7 +14,7 @@ Slack: https://losborbotones.slack.com
 # install nodejs
 # install npm (node's package manager)
 
-cd server
+npm install -g grunt-cli
 npm install
 ```
 
