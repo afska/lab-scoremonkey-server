@@ -1,7 +1,8 @@
 # scoremonkey
 Automatic music to MIDI converter
 
-Trello: https://trello.com/b/4ZpCOXng/losborbotones-proyectofinal 
+Trello: https://trello.com/b/4ZpCOXng/losborbotones-proyectofinal
+Slack: https://losborbotones.slack.com 
 
 ## server
 
