@@ -1,17 +1,26 @@
 # scoremonkey
 Automatic music to MIDI converter
 
-## wav2note
+Trello: https://trello.com/b/4ZpCOXng/losborbotones-proyectofinal 
 
-Instrucciones:
+## server
+
+#### ci:
+[![Build Status](https://semaphoreci.com/api/v1/projects/7f2c0aa5-872c-4170-8077-9f64bb5dfd5c/408337/badge.svg)](https://semaphoreci.com/rodri042/scoremonkey) 
+
+#### install:
 ```bash
-# Instalar nodejs
-# Instalar npm (package manager de node)
-sudo npm install -g coffee-script
+# install nodejs
+# install npm (node's package manager)
 
-cd wav2note
+cd server
 npm install
-cd src
-coffee wav2note.coffee g#.wav
-#devuelve la nota identificada (g#) :)
-``` 
+```
+
+#### run tests:
+```bash
+grunt test
+# or simply:
+grunt
+# (as "test" is the default task)
+```
