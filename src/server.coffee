@@ -2,7 +2,7 @@ http = require("http")
 _ = require("lodash")
 controller = require("./controller")
 
-module.exports = =>  
+module.exports = =>
   port = process.env.PORT || 8081
 
   http
