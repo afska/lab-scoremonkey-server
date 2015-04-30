@@ -18,10 +18,15 @@ npm install -g grunt-cli
 npm install
 ```
 
+#### run server:
+```bash
+grunt server
+# or simply:
+grunt
+# (as "server" is the default task)
+```
+
 #### run tests:
 ```bash
 grunt test
-# or simply:
-grunt
-# (as "test" is the default task)
 ```
