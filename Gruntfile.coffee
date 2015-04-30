@@ -7,35 +7,26 @@ module.exports = (grunt) ->
   #-------
   #Plugins
   #-------
-  grunt.loadNpmTasks "grunt-contrib-clean"
-  grunt.loadNpmTasks "grunt-contrib-coffee"
-  grunt.loadNpmTasks "grunt-mocha-test"
+  require("load-grunt-tasks") grunt
 
   #-----
   #Tasks
   #-----
-  grunt.registerTask "default", "test" 
+  grunt.registerTask "default", "server"
+
+  grunt.registerTask "server", "nodemon"
   grunt.registerTask "test", "mochaTest"
-  grunt.registerTask "build", ["clean:build", "coffee", "clean:specs"]
 
   #------
   #Config
   #------
   grunt.initConfig
-    #Clean build directory
-    clean:
-      build: src: "build"
-      specs: src: "build/*.spec.js"
-
-    #Compile coffee
-    coffee:
-      compile:
-        expand: true
-        cwd: "#{__dirname}/src"
-        src: ["**/{,*/}*.coffee"]
-        dest: "build/"
-        rename: (dest, src) ->
-          dest + "/" + src.replace(/\.coffee$/, ".js")
+    # Run server and watch for changes
+    nodemon:
+      dev:
+        script: "main.js"
+        options:
+          ext: "js,coffee"
 
     # Run tests
     mochaTest:
