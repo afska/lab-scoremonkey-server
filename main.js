@@ -1,2 +1,2 @@
 require("./globals.js");
-require("./src/server.coffee")();
+require("./src/api/server.coffee")();

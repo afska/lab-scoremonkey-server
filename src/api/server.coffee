@@ -1,5 +1,5 @@
 http = require("http")
-controller = include("controller")
+controller = include("api/controller")
 _ = include("utils/objectUtils")
 
 #A http server that listen to connections and delegates requests to the controller.
