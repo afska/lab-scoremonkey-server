@@ -1,5 +1,6 @@
-_ = require "lodash"
+_ = require("lodash")
 
+#add lodash methods to Array class
 [
 	"at", "compact", "contains", "countBy", "difference"
 	"find", "findIndex", "findLast", "findLastIndex", "first"

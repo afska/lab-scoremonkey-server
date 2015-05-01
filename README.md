@@ -30,3 +30,12 @@ grunt
 ```bash
 grunt test
 ```
+
+#### REPL shell:
+```shell
+node
+.load globals.js
+#your debugging code:
+_ = include("utils/objectUtils")
+# ...
+```

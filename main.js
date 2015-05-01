@@ -1,4 +1,2 @@
-require("coffee-script/register");
-require("./src/utils/include")
-
+require("./globals.js");
 require("./src/server.coffee")();

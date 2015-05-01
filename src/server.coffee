@@ -1,22 +1,18 @@
 http = require("http")
-_ = require("lodash")
-controller = include("./controller")
+controller = include("controller")
+_ = include("utils/objectUtils")
 
+#A http server that listen to connections and delegates requests to the controller.
 module.exports = =>
   port = process.env.PORT || 8081
 
   http
-    .createServer (request, response) =>
+    .createServer (req, res) =>
       data = ""
-      request.on "data", (chunk) => data += chunk
-      request.on "end", =>
-        req =
-          method: request.method
-          resource: request.url
-          headers: request.headers
-          body: data
-
-        controller req, response
+      req.on "data", (chunk) => data += chunk
+      req.on "end", =>
+        req = _.pick req, "method", "url", "headers"
+        controller (_.assign req, body: data), res
     .listen port
 
   console.log "[!] Listening in port #{port}"
