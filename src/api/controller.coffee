@@ -1,4 +1,4 @@
-PitchDetector = include("pitchDetector")
+MelodyDetector = include("melodyDetector")
 _ = include("utils/objectUtils")
 
 #A controller that manages server's requests.
@@ -7,8 +7,8 @@ class Controller
   #request = { method, url, headers, body }
   do: (request, response) =>
     @log request
-    new PitchDetector("examples/happybirthday.wav")
-      .getPitch()
+    new MelodyDetector("examples/happybirthday.wav")
+      .getMelody()
       .then (result) =>
         @json response, 200, result: result
 
