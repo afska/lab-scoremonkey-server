@@ -32,4 +32,4 @@ module.exports = (grunt) ->
     mochaTest:
       options:
         reporter: "spec"
-      src: ["src/**/*.spec.coffee"]
+      src: ["globals.js", "src/**/*.spec.coffee"]
