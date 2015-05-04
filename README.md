@@ -21,8 +21,6 @@ npm install
 ##### installing aubio dependency:
 Aubio is the main dependency of the project and is the library that provides the frequency analysis of a  wave. Place the script aubio_install.sh in your home directory and execute it.
 
-In Heroku, this was done manually in the remote server using: `heroku run git bash --app scoremonkey`.
-
 #### run server:
 ```bash
 grunt server
@@ -43,4 +41,16 @@ node
 #your debugging code:
 _ = include("utils/objectUtils")
 # ...
+```
+
+#### deploy:
+https://toolbelt.heroku.com/
+
+##### remote shell:
+```heroku run /bin/bash --app scoremonkey```
+
+#### add git remote and deploy
+```bash
+heroku git:remote --app scoremonkey
+git push heroku master
 ```
