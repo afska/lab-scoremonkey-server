@@ -7,7 +7,8 @@ class Controller
   #request = { method, url, headers, body }
   do: (request, response) =>
     @log request
-    new PitchDetector("/home/rodri/Desktop/queloscumplas.wav").getPitch()
+    new PitchDetector("examples/happybirthday.wav")
+      .getPitch()
       .then (result) =>
         @json response, 200, result: result
 
