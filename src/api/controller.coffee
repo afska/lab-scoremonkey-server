@@ -1,3 +1,4 @@
+PitchDetector = include("pitchDetector")
 _ = include("utils/objectUtils")
 
 #A controller that manages server's requests.
@@ -6,7 +7,9 @@ class Controller
   #request = { method, url, headers, body }
   do: (request, response) =>
     @log request
-    @json response, 200, result: "ok"
+    new PitchDetector("/home/rodri/Desktop/queloscumplas.wav").getPitch()
+      .then (result) =>
+        @json response, 200, result: result
 
   #responds a HTTP *statusCode* with a *body* in JSON format.
   json: (response, statusCode, body) =>
