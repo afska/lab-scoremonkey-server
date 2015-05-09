@@ -8,15 +8,16 @@
   "version": "0.0.1",
   "main": "main.js",
   "dependencies": {
+    "bluebird": "~2.9.25",
     "coffee-script": "~1.9.2",
     "lodash": "~3.7.0"
   },
   "devDependencies": {
+    "chai": "~2.2.0",
     "grunt": "~0.4.5",
-    "load-grunt-tasks": "~3.1.0",
-    "grunt-nodemon": "~0.4.0",
     "grunt-mocha-test": "~0.12.7",
-    "chai": "~2.2.0"
+    "grunt-nodemon": "~0.4.0",
+    "load-grunt-tasks": "~3.1.0"
   },
   "engines": {
     "node": ">=0.10.0"

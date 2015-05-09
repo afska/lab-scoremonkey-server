@@ -18,6 +18,9 @@ npm install -g grunt-cli
 npm install
 ```
 
+##### installing aubio dependency:
+Aubio is the main dependency of the project and is the library that provides the frequency analysis of a  wave. Place the script aubio_install.sh in your home directory and execute it.
+
 #### run server:
 ```bash
 grunt server
@@ -29,4 +32,25 @@ grunt
 #### run tests:
 ```bash
 grunt test
+```
+
+#### REPL shell:
+```shell
+node
+.load globals.js
+#your debugging code:
+_ = include("utils/objectUtils")
+# ...
+```
+
+#### deploy:
+https://toolbelt.heroku.com/
+
+##### remote shell:
+```heroku run /bin/bash --app scoremonkey```
+
+##### add git remote and deploy
+```bash
+heroku git:remote --app scoremonkey
+git push heroku master
 ```
