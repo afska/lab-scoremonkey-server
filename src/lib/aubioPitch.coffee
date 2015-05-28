@@ -3,7 +3,7 @@ childProcess = promisify require("child_process")
 require("protolodash")
 module.exports =
 
-#A library that recognize notes in a file stored in *path*.
+#A library that recognizes notes in a file stored in *path*.
 class AubioPitch
   constructor: (@path) ->
     @AUBIO_PATH = process.env.AUBIO_PATH || "lib"
