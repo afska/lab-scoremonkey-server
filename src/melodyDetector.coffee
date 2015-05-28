@@ -1,6 +1,6 @@
 AubioPitch = include("lib/aubioPitch")
 noteDictionary = include("noteDictionary")
-include("protolodash")
+require("protolodash")
 module.exports =
 
 #A generator of melodies using an audio recognizer.

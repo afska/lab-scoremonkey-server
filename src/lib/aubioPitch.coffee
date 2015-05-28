@@ -1,6 +1,6 @@
 promisify = require("bluebird").promisifyAll
 childProcess = promisify require("child_process")
-include("utils/objectUtils")
+require("protolodash")
 module.exports =
 
 #A library that recognize notes in a file stored in *path*.

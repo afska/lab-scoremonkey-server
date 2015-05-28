@@ -1,7 +1,6 @@
 require("chai").Should()
 Promise = require("bluebird")
 MelodyDetector = require("./melodyDetector")
-include("utils/objectUtils")
 
 describe "MelodyDetector", (done) ->
   it "can map frequencies to notes and filter repeated notes", ->
