@@ -1,4 +1,4 @@
-include("utils/objectUtils")
+require("protolodash")
 module.exports = new #singleton
 
 #A dictionary for finding all the playable notes with each frequency.

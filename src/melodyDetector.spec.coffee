@@ -1,7 +1,6 @@
 require("chai").Should()
 Promise = require("bluebird")
 MelodyDetector = require("./melodyDetector")
-include("utils/objectUtils")
 
 describe "MelodyDetector", (done) ->
   it "can map frequencies to notes and filter repeated notes", ->
@@ -16,7 +15,7 @@ describe "MelodyDetector", (done) ->
 
     detector.getMelody().then (melody) =>
       melody.should.eql [
-          { detected: "r", timestamp: 0, frequency: 0 }
-          { detected: "a4", timestamp: 0.1, frequency: 430 }
-          { detected: "c5", timestamp: 0.25, frequency: 522.664551 }
+          { note: "r", timestamp: 0 }
+          { note: "a4", timestamp: 0.1 }
+          { note: "c5", timestamp: 0.25 }
       ]

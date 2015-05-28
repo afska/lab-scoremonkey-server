@@ -1,6 +1,6 @@
 AubioPitch = include("lib/aubioPitch")
 noteDictionary = include("noteDictionary")
-include("utils/objectUtils")
+_ = require("protolodash")
 module.exports =
 
 #A generator of melodies using an audio recognizer.
@@ -10,17 +10,20 @@ class MelodyDetector
     @recognizer = new AubioPitch(filePath)
 
   #generate the melody from the output of the recognizer.
+  #returns a promise that resolves in something like [
+  # { timestamp: 0, note: "r" },
+  # { timestamp: 1.05, note: "c#4" }
+  #]
   getMelody: =>
     @recognizer.execute().then (output) =>
       mapped = output
         .map (sampleInfo) =>
           detected = noteDictionary.whatIs sampleInfo.frequency
-          sampleInfo.detected = detected?.note
-          sampleInfo
+          _.assign _.omit(sampleInfo, "frequency"), note: detected?.note
 
       mapped
         .reject (sampleInfo, i) =>
-          if not sampleInfo.detected? then return true
+          if not sampleInfo.note? then return true
 
           detectedNote = (it) => it?.detected
           detectedNote(sampleInfo) is detectedNote(mapped[i - 1])

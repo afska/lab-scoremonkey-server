@@ -1,6 +1,6 @@
 require("chai").Should()
 noteDictionary = require("./noteDictionary")
-include("utils/objectUtils")
+require("protolodash")
 
 describe "noteDictionary", ->
   it "should return all the note names in 10 octaves", ->
