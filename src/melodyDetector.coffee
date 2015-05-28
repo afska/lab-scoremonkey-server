@@ -22,5 +22,5 @@ class MelodyDetector
         .reject (sampleInfo, i) =>
           if not sampleInfo.detected? then return true
 
-          detected = (it) => it?.detected
-          detected(sampleInfo) is detected(mapped[i - 1])
+          detectedNote = (it) => it?.detected
+          detectedNote(sampleInfo) is detectedNote(mapped[i - 1])
