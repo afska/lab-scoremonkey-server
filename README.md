@@ -39,7 +39,7 @@ grunt test
 node
 .load globals.js
 #your debugging code:
-_ = include("utils/objectUtils")
+Monkey = include("domains/monkey")
 # ...
 ```
 
