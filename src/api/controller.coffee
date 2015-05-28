@@ -1,5 +1,5 @@
 MelodyDetector = include("melodyDetector")
-_ = include("protolodash")
+_ = require("protolodash")
 
 #A controller that manages server's requests.
 class Controller
