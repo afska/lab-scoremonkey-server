@@ -9,7 +9,10 @@ class AubioPitch
     @AUBIO_PATH = process.env.AUBIO_PATH || "lib"
 
   #execute the program and return a promise with the output.
-  #the return value is a promise.
+  #returns a promise that resolves in something like [
+  # { timestamp: 0, frequency: 441.24 },
+  # { timestamp: 1.05, frequency: 439.88 }
+  #]
   execute: => @_call().then @_parseOutput
 
   #convert the *output* of the stdout to objects.
