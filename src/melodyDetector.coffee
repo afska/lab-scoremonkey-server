@@ -1,5 +1,6 @@
 AubioPitch = include("lib/aubioPitch")
-noteDictionary = include("noteDictionary")
+Melody = include("melody")
+noteDictionary = include("converters/noteDictionary")
 _ = require("protolodash")
 module.exports =
 
@@ -9,21 +10,32 @@ class MelodyDetector
   constructor: (filePath) ->
     @recognizer = new AubioPitch(filePath)
 
-  #generate the melody from the output of the recognizer.
+  #Generate the melody from the output of the recognizer.
   #returns a promise that resolves in something like [
   # { timestamp: 0, note: "r" },
   # { timestamp: 1.05, note: "c#4" }
   #]
+  # -> TODO: Deshardcodear el 120 del tempo
   getMelody: =>
     @recognizer.execute().then (output) =>
-      mapped = output
-        .map (sampleInfo) =>
-          detected = noteDictionary.whatIs sampleInfo.frequency
-          _.assign _.omit(sampleInfo, "frequency"), note: detected?.note
+      notes = @_removeRepeatedNotes output.map(@_detectNote)
 
-      mapped
-        .reject (sampleInfo, i) =>
-          if not sampleInfo.note? then return true
+      notesWithDuration = @_addDurationToNotes notes
 
-          detectedNote = (it) => it?.detected
-          detectedNote(sampleInfo) is detectedNote(mapped[i - 1])
+      new Melody(120, notesWithDuration)
+
+  _detectNote: (sampledNote) =>
+    detectedNote = noteDictionary.whatIs sampledNote.frequency
+    _.assign _.omit(sampledNote, "frequency"), name: detectedNote?.note
+
+  _removeRepeatedNotes: (notes) =>
+    notes.reject (sampledNote, i) =>
+      if not sampledNote.name? then return true
+
+      detectedNote = (it) => it?.name
+      detectedNote(sampledNote) is detectedNote(notes[i - 1])
+
+  _addDurationToNotes: (notes) =>
+    notes.map (note, i) =>
+      nextTimestamp = notes[i+1]?.timestamp || note.timestamp
+      _.assign note, duration: (nextTimestamp - note.timestamp) * 1000

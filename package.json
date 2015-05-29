@@ -10,7 +10,8 @@
   "dependencies": {
     "bluebird": "~2.9.25",
     "coffee-script": "~1.9.2",
-    "protolodash": "~3.9.4"
+    "protolodash": "~3.9.4",
+    "jsmidgen": "~0.1.2"
   },
   "devDependencies": {
     "chai": "~2.2.0",

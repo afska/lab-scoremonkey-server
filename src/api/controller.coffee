@@ -1,4 +1,5 @@
 MelodyDetector = include("melodyDetector")
+MidiFile = include("midiFile")
 _ = require("protolodash")
 
 #A controller that manages server's requests.
@@ -9,8 +10,9 @@ class Controller
     @log request
     new MelodyDetector("examples/happybirthday.wav")
       .getMelody()
-      .then (result) =>
-        @json response, 200, result: result
+      .then (melody) =>
+        new MidiFile(melody).save "/home/javier/Escritorio/monkeybirthday.mid"
+        @json response, 200, melody
 
   #responds a HTTP *statusCode* with a *body* in JSON format.
   json: (response, statusCode, body) =>
