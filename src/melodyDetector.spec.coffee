@@ -14,8 +14,10 @@ describe "MelodyDetector", (done) ->
         ]
 
     detector.getMelody().then (melody) =>
-      melody.should.eql [
-          { note: "r", timestamp: 0 }
-          { note: "a4", timestamp: 0.1 }
-          { note: "c5", timestamp: 0.25 }
-      ]
+      melody.should.eql
+        tempo: 120
+        notes: [
+          { name: "r", timestamp: 0, duration: 100 }
+          { name: "a4", timestamp: 0.1, duration: 150 }
+          { name: "c5", timestamp: 0.25, duration: 0 }
+        ]
