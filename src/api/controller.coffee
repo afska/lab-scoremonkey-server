@@ -11,7 +11,7 @@ class Controller
     new MelodyDetector("examples/happybirthday.wav")
       .getMelody()
       .then (melody) =>
-        new MidiFile(melody).save "/home/javier/Escritorio/monkeybirthday.mid"
+        new MidiFile(melody).save "monkeybirthday.mid"
         @json response, 200, melody
 
   #responds a HTTP *statusCode* with a *body* in JSON format.
