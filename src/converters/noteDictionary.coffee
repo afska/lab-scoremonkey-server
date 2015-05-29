@@ -11,7 +11,7 @@ class NoteDictionary
         note: note
         frequency: @_frequencyOf note
 
-  #all available note names.
+  #All available note names.
   noteNames: =>
     names = [0 .. 10]
       .map (octave) =>
@@ -24,22 +24,22 @@ class NoteDictionary
       .flatten()
       .concat "r"
 
-  #get all the info of a *note*.
+  #Get all the info of a *note*.
   get: (note) =>
     @notes.find (noteInfo) => noteInfo.note is note
 
-  #position of a *note* in the notes array.
+  #Position of a *note* in the notes array.
   # e.g. "d#0" is 3
   positionOf: (note) => @noteNames().indexOf note
 
-  #identify a note info by *frequency*.
+  #Identify a note info by *frequency*.
   whatIs: (frequency) =>
     log2 = (n) => Math.log(n) / Math.log(2)
     index = (Math.round(12 * log2(frequency / @base.freq)) + @base.index).toFixed()
     if index <= 0 then return @get "r"
     @notes[index]
 
-  #frequency of a *note*.
+  #Frequency of a *note*.
   # 440 * (2^(1/12))^semitonesFromA4
   _frequencyOf: (note) =>
     if note is "r" then return 0
