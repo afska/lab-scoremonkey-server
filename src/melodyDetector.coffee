@@ -26,7 +26,8 @@ class MelodyDetector
 
   _detectNote: (sampledNote) =>
     detectedNote = noteDictionary.whatIs sampledNote.frequency
-    _.assign _.omit(sampledNote, "frequency"), name: detectedNote?.note
+    _.assign sampledNote,
+      name: detectedNote?.note
 
   _removeRepeatedNotes: (notes) =>
     notes.reject (sampledNote, i) =>
@@ -38,4 +39,5 @@ class MelodyDetector
   _addDurationToNotes: (notes) =>
     notes.map (note, i) =>
       nextTimestamp = notes[i+1]?.timestamp || note.timestamp
-      _.assign note, duration: (nextTimestamp - note.timestamp) * 1000
+      _.assign note,
+        duration: (nextTimestamp - note.timestamp) * 1000
