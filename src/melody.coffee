@@ -1,6 +1,5 @@
 BeatConverter = include("converters/beatConverter")
 _ = require("protolodash")
-
 module.exports =
 
 #A melody with a *tempo* and an array of *notes*.
