@@ -19,7 +19,7 @@ npm install
 ```
 
 ##### installing aubio dependency:
-Aubio is the main dependency of the project and is the library that provides the frequency analysis of a  wave. Place the script aubio_install.sh in your home directory and execute it.
+Aubio is the main dependency of the project and is the library that provides the frequency analysis of a  wave. Place the script `aubio_install.sh` in your home directory and execute it.
 
 #### run server:
 ```bash
