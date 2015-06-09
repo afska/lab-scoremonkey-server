@@ -12,7 +12,7 @@ Slack: https://losborbotones.slack.com
 #### install:
 ```bash
 # install nodejs
-# install npm (node's package manager)
+# install npm (node package manager)
 
 npm install -g grunt-cli
 npm install
@@ -41,6 +41,12 @@ node
 #your debugging code:
 Monkey = include("domains/monkey")
 # ...
+```
+
+#### record & play:
+```
+#requires arecord & timidity
+./tester.sh
 ```
 
 #### deploy:
