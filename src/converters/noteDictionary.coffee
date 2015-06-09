@@ -32,7 +32,7 @@ class NoteDictionary
   # e.g. "d#0" is 3
   positionOf: (note) => @noteNames().indexOf note
 
-  #Identify a note info by *frequency*.
+  #Identifies a note info by *frequency*.
   whatIs: (frequency) =>
     log2 = (n) => Math.log(n) / Math.log(2)
     index = (Math.round(12 * log2(frequency / @base.freq)) + @base.index).toFixed()

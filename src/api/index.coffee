@@ -8,6 +8,7 @@ module.exports = =>
   app = express()
   app.use require("body-parser").json() # json parser
   app.use require("morgan") "dev" # logger
+  app.use require("multer") dest: "#{__rootpath}/uploads" # multipart files
 
   require("./routes") app
 

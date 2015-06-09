@@ -14,6 +14,7 @@
     "express": "^4.12.4",
     "jsmidgen": "^0.1.2",
     "morgan": "^1.5.3",
+    "multer": "^0.1.8",
     "protolodash": "^3.9.4"
   },
   "devDependencies": {
