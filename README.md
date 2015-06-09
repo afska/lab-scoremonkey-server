@@ -35,7 +35,7 @@ grunt test
 ```
 
 #### REPL shell:
-```shell
+```bash
 node
 .load globals.js
 #your debugging code:
@@ -44,7 +44,7 @@ Monkey = include("domains/monkey")
 ```
 
 #### record & play:
-```
+```bash
 #requires arecord & timidity
 ./tester.sh
 ```
