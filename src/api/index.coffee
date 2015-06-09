@@ -1,5 +1,4 @@
 express = require("express")
-_ = require("protolodash")
 
 #A http server that listen to connections and delegates requests to the controller.
 module.exports = =>
