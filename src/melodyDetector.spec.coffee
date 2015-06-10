@@ -4,7 +4,7 @@ MelodyDetector = require("./melodyDetector")
 
 describe "MelodyDetector", (done) ->
   it "can map frequencies to notes and filter repeated notes", ->
-    detector = new MelodyDetector()
+    detector = new MelodyDetector filePath: ""
     detector.recognizer = execute: =>
       new Promise (resolve) -> resolve [
           { timestamp: 0, frequency: 0 }

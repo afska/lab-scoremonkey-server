@@ -8,17 +8,21 @@
   "version": "0.0.1",
   "main": "main.js",
   "dependencies": {
-    "bluebird": "~2.9.25",
-    "coffee-script": "~1.9.2",
-    "protolodash": "~3.9.4",
-    "jsmidgen": "~0.1.2"
+    "bluebird": "^2.9.25",
+    "body-parser": "^1.12.4",
+    "coffee-script": "^1.9.2",
+    "express": "^4.12.4",
+    "jsmidgen": "^0.1.2",
+    "morgan": "^1.5.3",
+    "multer": "^0.1.8",
+    "protolodash": "^3.9.4"
   },
   "devDependencies": {
-    "chai": "~2.2.0",
-    "grunt": "~0.4.5",
-    "grunt-mocha-test": "~0.12.7",
-    "grunt-nodemon": "~0.4.0",
-    "load-grunt-tasks": "~3.1.0"
+    "chai": "^2.2.0",
+    "grunt": "^0.4.5",
+    "grunt-mocha-test": "^0.12.7",
+    "grunt-nodemon": "^0.4.0",
+    "load-grunt-tasks": "^3.1.0"
   },
   "engines": {
     "node": ">=0.10.0"
