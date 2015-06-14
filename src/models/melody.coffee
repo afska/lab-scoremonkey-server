@@ -1,6 +1,5 @@
-BeatConverter = include("../converters/beatConverter")
+BeatConverter = include("converters/beatConverter")
 _ = require("protolodash")
-module.exports =
 
 ###
 A melody with a *tempo* and an array of *notes*.
@@ -8,6 +7,8 @@ The array is something like: [
  { note: "a4", frequency: 441.23, duration: 245 }
 ]
 ###
+module.exports =
+
 class Melody
   constructor: (@tempo, @notes) ->
     @beatConverter = new BeatConverter(@tempo)

@@ -1,8 +1,7 @@
-AubioPitch = include("../lib/aubioPitch")
-Melody = include("melody")
-noteDictionary = include("../converters/noteDictionary")
+Melody = include("models/melody")
+noteDictionary = include("converters/noteDictionary")
+AubioPitch = include("lib/aubioPitch")
 _ = require("protolodash")
-module.exports =
 
 ###
 A generator of melodies using an audio recognizer.
@@ -13,6 +12,8 @@ settings = {
  clef: "G"
 }
 ###
+module.exports =
+
 class MelodyDetector
   constructor: (@settings) ->
     @recognizer = new AubioPitch(@settings.filePath)

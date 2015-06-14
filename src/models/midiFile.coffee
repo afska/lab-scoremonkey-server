@@ -1,10 +1,11 @@
 Midi = require("jsmidgen")
 fs = require("fs")
-module.exports =
 
 ###
 A MIDI File created by a *melody*
 ###
+module.exports =
+
 class MidiFile
   constructor: (melody) ->
     @file = new Midi.File()

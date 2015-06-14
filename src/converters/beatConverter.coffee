@@ -1,8 +1,8 @@
-module.exports =
-
 ###
 A converter between beats and milliseconds.
 ###
+module.exports =
+
 class BeatConverter
   @Beat: 1/4 #length of a beat.
   constructor: (@tempo) ->
@@ -14,12 +14,12 @@ class BeatConverter
     (beats / @constructor.Beat) * @_beatDuration()
 
   ###
-  to beats.
+  To beats.
   ###
   toBeats: (ms) =>
     ms * @constructor.Beat / @_beatDuration()
 
   ###
-  duration of a beat in milliseconds.
+  Duration of a beat in milliseconds.
   ###
   _beatDuration: => (60 / @tempo) * 1000
