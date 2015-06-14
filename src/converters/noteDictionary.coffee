@@ -1,10 +1,11 @@
 require("protolodash")
-module.exports = new #singleton
 
 ###
 A dictionary for finding all the playable notes with each frequency.
 "c#5" is c sharp at the 5th octave, "r" is a rest.
 ###
+module.exports = new #singleton
+
 class NoteDictionary
   constructor: ->
     @base = freq: 440, index: @positionOf "a4"

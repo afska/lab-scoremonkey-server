@@ -1,11 +1,12 @@
 promisify = require("bluebird").promisifyAll
 childProcess = promisify require("child_process")
 require("protolodash")
-module.exports =
 
 ###
 A library that recognizes notes in a file stored in *path*.
 ###
+module.exports =
+
 class AubioPitch
   constructor: (@path) ->
     @AUBIO_PATH = process.env.AUBIO_PATH || "lib"

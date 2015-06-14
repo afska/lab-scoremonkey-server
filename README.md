@@ -1,4 +1,11 @@
-# scoremonkey
+```
+ ____                     __  __             _              
+/ ___|  ___ ___  _ __ ___|  \/  | ___  _ __ | | _____ _   _ 
+\___ \ / __/ _ \| '__/ _ \ |\/| |/ _ \| '_ \| |/ / _ \ | | |
+ ___) | (_| (_) | | |  __/ |  | | (_) | | | |   <  __/ |_| |
+|____/ \___\___/|_|  \___|_|  |_|\___/|_| |_|_|\_\___|\__, |
+                                                      |___/ 
+```
 Automatic music to MIDI converter
 
 Trello: https://trello.com/b/4ZpCOXng/losborbotones-proyectofinal
