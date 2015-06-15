@@ -1,29 +1,25 @@
-AubioPitch = include("../lib/aubioPitch")
+AubioPitch = include("lib/aubioPitch")
 Melody = include("melody")
-noteDictionary = include("../converters/noteDictionary")
+noteDictionary = include("converters/noteDictionary")
 _ = require("protolodash")
 module.exports =
 
-###
-A generator of melodies using an audio recognizer.
-settings = {
- filePath: "/home/user/path/audioFile.wav"
- tempo: 180
- bar: { major: 4, minor: 4 }
- clef: "G"
-}
-###
+#A generator of melodies using an audio recognizer.
+#settings = {
+# filePath: "/home/user/path/audioFile.wav"
+# tempo: 180
+# bar: { major: 4, minor: 4 }
+# clef: "G"
+#}
 class MelodyDetector
   constructor: (@settings) ->
     @recognizer = new AubioPitch(@settings.filePath)
 
-  ###
-  Generate the melody from the output of the recognizer.
-  returns a promise that resolves in something like [
-   { timestamp: 0, note: "r" },
-   { timestamp: 1.05, note: "c#4" }
-  ]
-  ###
+  #Generate the melody from the output of the recognizer.
+  #returns a promise that resolves in something like [
+  # { timestamp: 0, note: "r" },
+  # { timestamp: 1.05, note: "c#4" }
+  #]
   getMelody: =>
     @recognizer.execute().then (output) =>
       notes = @_removeRepeatedNotes output.map(@_detectNote)

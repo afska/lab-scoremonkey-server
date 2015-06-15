@@ -3,14 +3,9 @@ MidiFile = include("midiFile")
 unlink = require("fs").unlinkSync
 _ = require("protolodash")
 
-###
-A controller that manages audio recognition.
-###
-class MelodyController
-
-  ###
-  recognizes an audio file, returns the MIDI & MusicXML
-  ###
+#A controller that manages audio recognition.
+class MelodiesController
+  #recognizes an audio file, returns the MIDI & MusicXML
   recognize: (req, res) =>
     errors = @_findErrors req
     if not _.isEmpty errors
@@ -30,9 +25,7 @@ class MelodyController
         res.json melody
       .finally => @_deleteFiles req
 
-  ###
-  find possible errors in the request
-  ###
+  #find possible errors in the request
   _findErrors: (req) ->
     errors = []
 
@@ -52,9 +45,7 @@ class MelodyController
 
     errors
 
-  ###
-  Deletes all the files of the request
-  ###
+  #deletes all the files of the request
   _deleteFiles: (req) ->
     for name, file of req.files
       unlink file.path
