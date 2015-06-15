@@ -31,7 +31,7 @@ class MelodyDetector
       notesWithDuration = @_addDurationToNotes output
 
       #groupBySemicorchea
-      notesWithDuration.reduce ,[]
+      #notesWithDuration.reduce ,[]
       # falta para esto :)
       #new Melody(@settings.tempo, notesWithDuration)
 
