@@ -11,15 +11,15 @@ class BeatConverter
   To milliseconds.
   ###
   toMs: (beats) =>
-    (beats / @constructor.Beat) * @_beatDuration()
+    (beats / @constructor.Beat) * @beatDuration()
 
   ###
   To beats.
   ###
   toBeats: (ms) =>
-    ms * @constructor.Beat / @_beatDuration()
+    ms * @constructor.Beat / @beatDuration()
 
   ###
   Duration of a beat in milliseconds.
   ###
-  _beatDuration: => (60 / @tempo) * 1000
+  beatDuration: => (60 / @tempo) * 1000

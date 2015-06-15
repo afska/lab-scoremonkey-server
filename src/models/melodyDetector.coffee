@@ -28,23 +28,12 @@ class MelodyDetector
   ###
   getMelody: =>
     @recognizer.execute().then (output) =>
-      notes = @_removeRepeatedNotes output.map(@_detectNote)
+      notesWithDuration = @_addDurationToNotes output
 
-      notesWithDuration = @_addDurationToNotes notes
-
-      new Melody(@settings.tempo, notesWithDuration)
-
-  _detectNote: (sampledNote) =>
-    detectedNote = noteDictionary.whatIs sampledNote.frequency
-    _.assign sampledNote,
-      name: detectedNote?.note
-
-  _removeRepeatedNotes: (notes) =>
-    notes.reject (sampledNote, i) =>
-      if not sampledNote.name? then return true
-
-      detectedNote = (it) => it?.name
-      detectedNote(sampledNote) is detectedNote(notes[i - 1])
+      #groupBySemicorchea
+      notesWithDuration.reduce ,[]
+      # falta para esto :)
+      #new Melody(@settings.tempo, notesWithDuration)
 
   _addDurationToNotes: (notes) =>
     notes.map (note, i) =>
