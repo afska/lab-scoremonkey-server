@@ -60,5 +60,5 @@ class MelodyController
       unlink file.path
 
 module.exports = (app) =>
-  ctrl = new MelodiesController()
+  ctrl = new MelodyController()
   app.post "/melodies", ctrl.recognize
