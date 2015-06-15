@@ -21,8 +21,9 @@ class MelodyDetector
   ###
   Generate the melody from the output of the recognizer.
   returns a promise that resolves in something like [
-   { timestamp: 0, note: "r" },
-   { timestamp: 1.05, note: "c#4" }
+   { frequency: 0, name: "r", timestamp: 0, duration: 100 }
+   { frequency: 430, name: "a4", timestamp: 0.1, duration: 150 }
+   { frequency: 522.664551, name: "c5", timestamp: 0.25, duration: 0 }
   ]
   ###
   getMelody: =>

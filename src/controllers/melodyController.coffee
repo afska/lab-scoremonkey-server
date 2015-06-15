@@ -7,7 +7,6 @@ _ = require("protolodash")
 A controller that manages audio recognition.
 ###
 class MelodyController
-
   ###
   Recognizes an audio file, returns the MIDI & MusicXML
   ###
