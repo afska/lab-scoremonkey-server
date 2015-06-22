@@ -15,8 +15,9 @@ class MidiFile
     track.setTempo melody.tempo
 
     #notes convertion
-    melody.notesWithBeats().forEach (note, i) =>
-      previousNote = melody.notes[i-1]
+    notes = melody.notesWithBeats()
+    notes.forEach (note, i) =>
+      previousNote = notes[i-1]
       ticks = @_getTicks note.duration
 
       if note.name is "r"

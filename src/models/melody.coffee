@@ -23,5 +23,5 @@ class Melody
   ###
   notesWithBeats: =>
     @notes.map (note) =>
-      _.assign note,
-        duration: @beatConverter.toBeats note.duration
+      name: note.name,
+      duration: @beatConverter.toBeats note.duration
