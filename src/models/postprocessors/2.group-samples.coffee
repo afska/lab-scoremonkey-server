@@ -8,7 +8,7 @@ Groups the samples by a minimum note length.
  Input: [{frequency, duration}, ...]
  Output: [[{frequency, duration}, ...], ...]
 ###
-module.exports = (samples, settings) =>
+module.exports = (settings, samples) =>
   minimumMs = new BeatConverter(settings.tempo).toMs MINIMUM_NOTE_LENGTH
 
   groupByMs = (groups, sample) =>

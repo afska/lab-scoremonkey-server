@@ -4,7 +4,7 @@ Removes the last useless sample.
  Input: [{timestamp, frequency}, ...]
  Output: [{frequency, duration}, ...]
 ###
-module.exports = (samples) =>
+module.exports = (settings, samples) =>
   samples = samples.map (sample, i) =>
     nextTimestamp = samples[i+1]?.timestamp || sample.timestamp
 

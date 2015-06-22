@@ -6,7 +6,7 @@ Merges the notes with the same name that can be merged
  Input: [{name, duration, canBeMerged}, ...]
  Output: [{name, duration}, ...]
 ###
-module.exports = (notes, settings) =>
+module.exports = (settings, notes) =>
   merge = (merged, note) =>
     last = merged.last()
 

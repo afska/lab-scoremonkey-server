@@ -1,6 +1,6 @@
-Melody = include("models/melody")
-noteDictionary = include("converters/noteDictionary")
 AubioPitch = include("lib/aubioPitch")
+Melody = include("models/melody")
+readDir = require("fs").readdirSync
 _ = require("protolodash")
 
 ###
@@ -23,17 +23,10 @@ class MelodyDetector
   ###
   getMelody: =>
     @recognizer.execute().then (samples) =>
-      notesWithDuration = @_addDurationToNotes output
+      postProcessors = readDir("#{__dirname}/postprocessors")
+        .reject (file) => file.startsWith(".") or _.contains(file, "spec")
+        .map (file) => require("./postprocessors/#{file}").bind @, @settings
 
-      #Hacer flow de postprocessors y volar @_addDurationToNotes
+      notes = (_.flow.apply @, postProcessors)(samples)
 
-      #groupBySemicorchea
-      #notesWithDuration.reduce ,[]
-      # falta para esto :)
-      #new Melody(@settings.tempo, notesWithDuration)
-
-  _addDurationToNotes: (notes) =>
-    notes.map (note, i) =>
-      nextTimestamp = notes[i+1]?.timestamp || note.timestamp
-      _.assign note,
-        duration: (nextTimestamp - note.timestamp) * 1000
+      new Melody @settings.tempo, notes

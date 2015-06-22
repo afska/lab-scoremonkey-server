@@ -3,7 +3,7 @@ execute = require("./3.detect-notes")
 
 describe "3.detect-notes", ->
   it "can detect the predominant note of a sample", ->
-    execute([
+    execute(tempo: 60, [
       [
         { frequency: 83, duration: 80 }   # e2 = 82.41
         { frequency: 81, duration: 80 }   # e2 = 82.41
@@ -19,14 +19,14 @@ describe "3.detect-notes", ->
       [
         { frequency: 48, duration: 60 } # g1 = 49.00
       ]
-    ], tempo: 60).should.eql [
+    ]).should.eql [
       { name: "e2", duration: 250, canBeMerged: true }
       { name: "c5", duration: 250, canBeMerged: true }
       { name: "g1", duration: 60, canBeMerged: true }
     ]
 
   it "marks as unmergeables the samples with rests", ->
-    execute([
+    execute(tempo: 60, [
       [
         { frequency: 48, duration: 250 } # g1 = 49.00
       ]
@@ -36,7 +36,7 @@ describe "3.detect-notes", ->
         { frequency: 0, duration: 80 } # a8 = 7040
         { frequency: 86, duration: 10 }   # f2 = 87.31
       ]
-    ], tempo: 60).should.eql [
+    ]).should.eql [
       { name: "g1", duration: 250, canBeMerged: true }
       { name: "e2", duration: 250, canBeMerged: false }
     ]

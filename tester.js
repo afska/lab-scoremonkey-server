@@ -1,6 +1,6 @@
 require("./globals");
-var MelodyDetector = include("melodyDetector");
-var MidiFile = include("midiFile");
+var MelodyDetector = include("models/melodyDetector");
+var MidiFile = include("models/midiFile");
 
 var settings = {
   filePath: "tmp.wav",

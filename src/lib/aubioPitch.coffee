@@ -1,6 +1,6 @@
 promisify = require("bluebird").promisifyAll
 childProcess = promisify require("child_process")
-require("protolodash")
+_ = require("protolodash")
 
 ###
 A library that recognizes notes in a file stored in *path*.
@@ -24,8 +24,9 @@ class AubioPitch
   Converts the *output* of the stdout into objects.
   ###
   _parseOutput: (output) =>
-    lines = output.split "\n"
-    @_validate lines, output
+    lines = output.split("\n").filter @_matches
+    if _.isEmpty lines
+      throw new Error "Unexpected output:\n#{output}"
 
     lines.map (line) =>
       noteInfo = line.split " "
@@ -42,12 +43,8 @@ class AubioPitch
       .spread (stdout, stderr) => stdout
 
   ###
-  Checks that every line matches with a format like:
+  Checks if a line matches with a format like:
    {number} {number}
-  If not, an exception is thrown with the output.
   ###
-  _validate: (lines, fullOutput) =>
-    ok = lines.every (line) =>
-      /[0-9]*\.?[0-9]+ [0-9]*\.?[0-9]+/.test line
-
-    if not ok then throw new Error "Unexpected output: #{fullOutput}"
+  _matches: (line) =>
+    /[0-9]*\.?[0-9]+ [0-9]*\.?[0-9]+/.test line

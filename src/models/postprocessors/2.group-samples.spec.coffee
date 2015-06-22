@@ -5,7 +5,7 @@ describe "2.group-Samples", ->
   it "can group the samples in an array of arrays, by 16th notes", ->
     # in 60 bpm: 16th note = 250ms
 
-    execute([
+    execute(tempo: 60, [
       { frequency: 1, duration: 80 } # 80
       { frequency: 2, duration: 80 } # 160
       { frequency: 3, duration: 80 } # 240
@@ -13,7 +13,7 @@ describe "2.group-Samples", ->
       { frequency: 5, duration: 80 } # 400
       { frequency: 6, duration: 80 } # 480
       { frequency: 7, duration: 80 } # 560
-    ], tempo: 60).should.eql [
+    ]).should.eql [
       [
         { frequency: 1, duration: 80 } # 80
         { frequency: 2, duration: 80 } # 160

@@ -23,4 +23,4 @@ describe "AubioPitch", ->
     aubioPitchMock("The lib has exploded!")
       .execute()
       .catch ({message}) =>
-        message.should.be.eql "Unexpected output: The lib has exploded!"
+        message.should.be.eql "Unexpected output:\nThe lib has exploded!"

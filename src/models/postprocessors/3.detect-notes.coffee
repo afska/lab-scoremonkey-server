@@ -6,7 +6,7 @@ Detects the note for each group and determines if it can be merged
  Input: [[{frequency, duration}, ...], ...]
  Output: [{name, duration, canBeMerged}, ...]
 ###
-module.exports = (groups, settings) =>
+module.exports = (settings, groups) =>
   groups.map (group) =>
     detectedNotes = group.map (sample) =>
       name: noteDictionary.whatIs(sample.frequency).name
