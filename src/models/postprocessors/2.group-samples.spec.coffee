@@ -1,7 +1,7 @@
 require("chai").Should()
-execute = require("./1.group-samples")
+execute = require("./2.group-samples")
 
-describe "1.group-Samples", ->
+describe "2.group-Samples", ->
   it "can group the samples in an array of arrays, by 16th notes", ->
     # in 60 bpm: 16th note = 250ms
 

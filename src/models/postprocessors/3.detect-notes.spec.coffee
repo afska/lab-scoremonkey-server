@@ -1,7 +1,7 @@
 require("chai").Should()
-execute = require("./2.detect-notes")
+execute = require("./3.detect-notes")
 
-describe "2.detect-notes", ->
+describe "3.detect-notes", ->
   it "can detect the predominant note of a sample", ->
     execute([
       [

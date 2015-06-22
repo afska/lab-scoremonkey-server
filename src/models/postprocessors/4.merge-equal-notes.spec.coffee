@@ -1,7 +1,7 @@
 require("chai").Should()
-execute = require("./3.merge-equal-notes")
+execute = require("./4.merge-equal-notes")
 
-describe "3.merge-equal-notes", ->
+describe "4.merge-equal-notes", ->
   it "can merge notes that must be merged", ->
     execute([
       { name: "g1", duration: 250, canBeMerged: true }

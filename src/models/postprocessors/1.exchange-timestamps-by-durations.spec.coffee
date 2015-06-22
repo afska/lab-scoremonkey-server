@@ -1,7 +1,7 @@
 require("chai").Should()
-execute = require("./0.exchange-timestamps-by-durations")
+execute = require("./1.exchange-timestamps-by-durations")
 
-describe "0.exchange-timestamps-by-durations", ->
+describe "1.exchange-timestamps-by-durations", ->
   it "can calculate the duration in ms, based on the timestamps", ->
     execute([
       { timestamp: 0, frequency: 0 }
