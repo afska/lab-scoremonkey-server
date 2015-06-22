@@ -6,7 +6,7 @@ MINIMUM_NOTE_LENGTH = 1/16
 ###
 Groups the samples by a minimum note length.
  Input: [{frequency, duration}, ...]
- Output: [[{frequency, duration}], ...]
+ Output: [[{frequency, duration}, ...], ...]
 ###
 module.exports = (samples, settings) =>
   minimumMs = new BeatConverter(settings.tempo).toMs MINIMUM_NOTE_LENGTH

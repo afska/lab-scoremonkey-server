@@ -4,7 +4,7 @@ _ = require("protolodash")
 ###
 A melody with a *tempo* and an array of *notes*.
 The array is something like: [
- { note: "a4", duration: 245 }
+ { name: "a4", duration: 245 }
 ]
 ###
 module.exports =
