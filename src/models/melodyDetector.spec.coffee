@@ -2,7 +2,7 @@ require("chai").Should()
 Promise = require("bluebird")
 MelodyDetector = require("./melodyDetector")
 
-describe "MelodyDetector", (done) ->
+describe "MelodyDetector", ->
   # it "can map frequencies to notes and filter repeated notes", ->
   #   detector = new MelodyDetector filePath: ""
   #   detector.recognizer = execute: =>
