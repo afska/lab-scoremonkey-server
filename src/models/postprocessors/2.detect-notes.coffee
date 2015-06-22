@@ -20,4 +20,5 @@ module.exports = (groups, settings) =>
 
     name: finalNote.name
     duration: _.sum group, "duration"
-    canBeMerged: not detectedNotes.some (note) => note.name is "r"
+    canBeMerged: finalNote.name is "r" or
+      (not detectedNotes.some (note) => note.name is "r")
