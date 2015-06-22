@@ -6,7 +6,7 @@ describe "BeatConverter", ->
     new BeatConverter(120)
       .toMs(1/4).should.eql 500
 
-  it "can milliseconds convert to beats", ->
+  it "can convert milliseconds to beats", ->
     new BeatConverter(150)
       .toBeats(400).should.eql 1/4
 

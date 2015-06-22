@@ -1,5 +1,4 @@
 require("chai").Should()
-Promise = require("bluebird")
 Melody = require("./melody")
 
 describe "Melody", ->

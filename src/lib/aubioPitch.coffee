@@ -13,18 +13,20 @@ class AubioPitch
 
   ###
   Executes the program and return a promise with the output.
-  Returns a promise that resolves in something like [
+  Returns a promise that resolves to something like [
    { timestamp: 0, frequency: 441.24 },
    { timestamp: 1.05, frequency: 439.88 }
-  ]
+  ] or rejects to an error.
   ###
   execute: => @_call().then @_parseOutput
 
   ###
-  Convert the *output* of the stdout to objects.
+  Converts the *output* of the stdout into objects.
   ###
   _parseOutput: (output) =>
     lines = output.split "\n"
+    @_validate lines, output
+
     lines.map (line) =>
       noteInfo = line.split " "
 
@@ -32,9 +34,20 @@ class AubioPitch
       frequency: parseFloat noteInfo.last()
 
   ###
-  Invoke the binary.
+  Invokes the binary.
   ###
   _call: =>
     childProcess
       .execAsync "#{@AUBIO_PATH}/aubiopitch -i #{@path}"
       .spread (stdout, stderr) => stdout
+
+  ###
+  Checks that every line matches with a format like:
+   {number} {number}
+  If not, an exception is thrown with the output.
+  ###
+  _validate: (lines, fullOutput) =>
+    ok = lines.every (line) =>
+      /[0-9]*\.?[0-9]+ [0-9]*\.?[0-9]+/.test line
+
+    if not ok then throw new Error "Unexpected output: #{fullOutput}"

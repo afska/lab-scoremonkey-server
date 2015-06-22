@@ -19,16 +19,13 @@ class MelodyDetector
     @recognizer = new AubioPitch(@settings.filePath)
 
   ###
-  Generate the melody from the output of the recognizer.
-  returns a promise that resolves in something like [
-   { frequency: 0, name: "r", timestamp: 0, duration: 100 }
-   { frequency: 430, name: "a4", timestamp: 0.1, duration: 150 }
-   { frequency: 522.664551, name: "c5", timestamp: 0.25, duration: 0 }
-  ]
+  Generates the melody from the output of the recognizer.
   ###
   getMelody: =>
-    @recognizer.execute().then (output) =>
+    @recognizer.execute().then (samples) =>
       notesWithDuration = @_addDurationToNotes output
+
+      #Hacer flow de postprocessors y volar @_addDurationToNotes
 
       #groupBySemicorchea
       #notesWithDuration.reduce ,[]
