@@ -53,6 +53,7 @@ Monkey = include("domains/monkey")
 #### record & play:
 ```bash
 #requires arecord & timidity
+#gtick is recomended as metronome
 ./tester.sh
 ```
 
