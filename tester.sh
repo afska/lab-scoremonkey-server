@@ -42,7 +42,7 @@ function record() {
 }
 
 function recognize() {
-  node ./tester.js $fileName $tempo $options
+  node ./tester.js "$fileName" "$tempo" "$options"
   if [ ! -f "$MIDI_NAME" ] ; then
     echo "The recognition has failed."
     exit 3
@@ -91,7 +91,6 @@ done
 if [ -n "$input" ] ; then
   # to recognize an existing file
 
-  echo $options
   if [ ! -f "$input" ] ; then
     echo "File $1 does't exists."
     exit 1
