@@ -33,7 +33,7 @@ function record() {
 }
 
 function recognize() {
-	node ./tester.js
+	node ./tester.js $fileName
 	if [ ! -f "$midiName" ] ; then
 		echo "The recognition has failed."
 		exit 3
@@ -54,18 +54,20 @@ function clean() {
 # -------
 # Options
 # -------
+
 if [ "$1" == "-s" ] ; then
+	# to record, save, and recognize a file
+
 	if [ -z "$2" ] ; then
 		echo "A file is required."
-		exit 1
-	elif [ ! -f "$2" ] ; then
-		echo "File $2 does't exists."
 		exit 1
 	fi
 
 	fileName="$2"
-	record()
+	record
 elif [ -n "$1" ] ; then
+	# to recognize an existing file
+
 	if [ ! -f "$1" ] ; then
 		echo "File $1 does't exists."
 		exit 1
@@ -73,12 +75,13 @@ elif [ -n "$1" ] ; then
 
 	fileName="$1"
 else
-	record()
+	# to record and recognize a temporary file
+	record
 fi
 
 # ----
 # Main
 # ----
-recognize()
-play()
-clean()
+recognize
+play
+clean
