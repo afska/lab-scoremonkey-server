@@ -33,7 +33,7 @@ describe "3.detect-notes", ->
       [
         { frequency: 83, duration: 80 }   # e2 = 82.41
         { frequency: 81, duration: 80 }   # e2 = 82.41
-        { frequency: 0, duration: 80 } # a8 = 7040
+        { frequency: 0, duration: 80 }    # a8 = 7040
         { frequency: 86, duration: 10 }   # f2 = 87.31
       ]
     ]).should.eql [
