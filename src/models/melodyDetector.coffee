@@ -16,7 +16,7 @@ module.exports =
 
 class MelodyDetector
   constructor: (@settings) ->
-    @recognizer = new AubioPitch(@settings.filePath)
+    @recognizer = new AubioPitch(@settings.filePath, @settings.options)
 
   ###
   Generates the melody from the output of the recognizer.

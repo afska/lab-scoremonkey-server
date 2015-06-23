@@ -8,7 +8,7 @@ A library that recognizes notes in a file stored in *path*.
 module.exports =
 
 class AubioPitch
-  constructor: (@path) ->
+  constructor: (@path, @options = "") ->
     @AUBIO_PATH = process.env.AUBIO_PATH || "lib"
 
   ###
@@ -39,7 +39,7 @@ class AubioPitch
   ###
   _call: =>
     childProcess
-      .execAsync "#{@AUBIO_PATH}/aubiopitch -i #{@path}"
+      .execAsync "#{@AUBIO_PATH}/aubiopitch -i #{@path} #{@options}"
       .spread (stdout, stderr) => stdout
 
   ###
