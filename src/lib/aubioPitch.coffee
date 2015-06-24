@@ -38,8 +38,10 @@ class AubioPitch
   Invokes the binary.
   ###
   _call: =>
+    command = "#{@AUBIO_PATH}/aubiopitch -i #{@path} #{@options}"
+
     childProcess
-      .execAsync "#{@AUBIO_PATH}/aubiopitch -i #{@path} #{@options}"
+      .execAsync command, maxBuffer: Number.MAX_VALUE
       .spread (stdout, stderr) => stdout
 
   ###
