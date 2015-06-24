@@ -15,6 +15,7 @@ function usage() {
   echo "[optional]:"
   echo "-t  tempo (defaults to 120)"
   echo "-o  aubiopitch options (defaults to '')"
+  echo "-k  keep the tmp.mid file"
   exit 0
 }
 
@@ -29,6 +30,7 @@ input=
 save=
 tempo=120
 options=
+keep=
 
 # ---------
 # Functions
@@ -57,13 +59,15 @@ function clean() {
   if [ "$fileName" == "$TEMP_NAME" ] ; then
     rm "$TEMP_NAME"
   fi
-  rm "$MIDI_NAME"
+  if [ -z "$keep" ] ; then
+    rm "$MIDI_NAME"
+  fi
 }
 
 # ----------
 # Parameters
 # ----------
-while getopts “hi:s:t:o:” param
+while getopts “hi:s:t:o:k” param
 do
   case $param in
     h)
@@ -80,6 +84,9 @@ do
       ;;
     o)
       options=$OPTARG
+      ;;
+    k)
+      keep=1
       ;;
     ?)
       echo
