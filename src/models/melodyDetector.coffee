@@ -19,7 +19,8 @@ class MelodyDetector
     @recognizer = new AubioPitch(@settings.filePath, @settings.options)
 
   ###
-  Generates the melody from the output of the recognizer.
+  Generates the melody using the output of the recognizer
+  and a dynamic list of chained postprocessors (_.flow).
   ###
   getMelody: =>
     @recognizer.execute().then (samples) =>
