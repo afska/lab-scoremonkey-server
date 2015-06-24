@@ -1,5 +1,4 @@
 MelodyDetector = include("models/melodyDetector")
-MidiFile = include("models/midiFile")
 unlink = require("fs").unlinkSync
 _ = require("protolodash")
 
@@ -24,9 +23,7 @@ class MelodyController
 
     new MelodyDetector(settings)
       .getMelody()
-      .then (melody) =>
-        new MidiFile(melody).save "monkeybirthday.mid"
-        res.json melody
+      .then (melody) => res.json melody
       .finally => @_deleteFiles req
 
   ###
