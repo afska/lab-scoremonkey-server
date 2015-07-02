@@ -36,7 +36,13 @@ keep=
 # Functions
 # ---------
 function record() {
-  arecord -f dat -D hw:0,0 "$fileName"
+  if hash arecord 2>/dev/null; then
+    # Linux
+    arecord -f dat -D hw:0,0 "$fileName"
+  else
+    # OSX
+    sox -d "$fileName"
+  fi
   if [ ! -f "$fileName" ] ; then
     echo "The recording has failed."
     exit 2
