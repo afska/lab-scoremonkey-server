@@ -105,7 +105,7 @@ if [ -n "$input" ] ; then
   # to recognize an existing file
 
   if [ ! -f "$input" ] ; then
-    echo "File $1 does't exists."
+    echo "File $1 doesn't exist."
     exit 1
   fi
 
