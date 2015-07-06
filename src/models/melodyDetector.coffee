@@ -1,6 +1,6 @@
-Melody = include("models/melody")
-noteDictionary = include("converters/noteDictionary")
 AubioPitch = include("lib/aubioPitch")
+Melody = include("models/melody")
+readDir = require("fs").readdirSync
 _ = require("protolodash")
 
 ###
@@ -16,37 +16,18 @@ module.exports =
 
 class MelodyDetector
   constructor: (@settings) ->
-    @recognizer = new AubioPitch(@settings.filePath)
+    @recognizer = new AubioPitch(@settings.filePath, @settings.options)
 
   ###
-  Generate the melody from the output of the recognizer.
-  returns a promise that resolves in something like [
-   { timestamp: 0, note: "r" },
-   { timestamp: 1.05, note: "c#4" }
-  ]
+  Generates the melody using the output of the recognizer
+  and a dynamic list of chained postprocessors (_.flow).
   ###
   getMelody: =>
-    @recognizer.execute().then (output) =>
-      notes = @_removeRepeatedNotes output.map(@_detectNote)
+    @recognizer.execute().then (samples) =>
+      postProcessors = readDir("#{__dirname}/postprocessors")
+        .reject (file) => file.startsWith(".") or _.contains(file, "spec")
+        .map (file) => require("./postprocessors/#{file}").bind @, @settings
 
-      notesWithDuration = @_addDurationToNotes notes
+      notes = (_.flow.apply @, postProcessors)(samples)
 
-      new Melody(@settings.tempo, notesWithDuration)
-
-  _detectNote: (sampledNote) =>
-    detectedNote = noteDictionary.whatIs sampledNote.frequency
-    _.assign sampledNote,
-      name: detectedNote?.note
-
-  _removeRepeatedNotes: (notes) =>
-    notes.reject (sampledNote, i) =>
-      if not sampledNote.name? then return true
-
-      detectedNote = (it) => it?.name
-      detectedNote(sampledNote) is detectedNote(notes[i - 1])
-
-  _addDurationToNotes: (notes) =>
-    notes.map (note, i) =>
-      nextTimestamp = notes[i+1]?.timestamp || note.timestamp
-      _.assign note,
-        duration: (nextTimestamp - note.timestamp) * 1000
+      new Melody @settings.tempo, notes

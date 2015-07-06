@@ -1,12 +1,13 @@
 require("./globals");
-var MelodyDetector = include("melodyDetector");
-var MidiFile = include("midiFile");
+var MelodyDetector = include("models/melodyDetector");
+var MidiFile = include("models/midiFile");
 
 var settings = {
-  filePath: "tmp.wav",
-  tempo: 120,
+  filePath: process.argv[2],
+  tempo: process.argv[3],
   bar: { major: 4, minor: 4 },
-  clef: "G"
+  clef: "G",
+  options: process.argv[4]
 }
 
 new MelodyDetector(settings)

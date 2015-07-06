@@ -1,6 +1,6 @@
 promisify = require("bluebird").promisifyAll
 childProcess = promisify require("child_process")
-require("protolodash")
+_ = require("protolodash")
 
 ###
 A library that recognizes notes in a file stored in *path*.
@@ -8,23 +8,26 @@ A library that recognizes notes in a file stored in *path*.
 module.exports =
 
 class AubioPitch
-  constructor: (@path) ->
+  constructor: (@path, @options = "") ->
     @AUBIO_PATH = process.env.AUBIO_PATH || "lib"
 
   ###
   Executes the program and return a promise with the output.
-  Returns a promise that resolves in something like [
+  Returns a promise that resolves to something like [
    { timestamp: 0, frequency: 441.24 },
    { timestamp: 1.05, frequency: 439.88 }
-  ]
+  ] or rejects to an error.
   ###
   execute: => @_call().then @_parseOutput
 
   ###
-  Convert the *output* of the stdout to objects.
+  Converts the *output* of the stdout into objects.
   ###
   _parseOutput: (output) =>
-    lines = output.split "\n"
+    lines = output.split("\n").filter @_matches
+    if _.isEmpty lines
+      throw new Error "Unexpected output:\n#{output}"
+
     lines.map (line) =>
       noteInfo = line.split " "
 
@@ -32,9 +35,18 @@ class AubioPitch
       frequency: parseFloat noteInfo.last()
 
   ###
-  Invoke the binary.
+  Invokes the binary.
   ###
   _call: =>
+    command = "#{@AUBIO_PATH}/aubiopitch -i #{@path} #{@options}"
+
     childProcess
-      .execAsync "#{@AUBIO_PATH}/aubiopitch -i #{@path}"
+      .execAsync command, maxBuffer: Number.MAX_VALUE
       .spread (stdout, stderr) => stdout
+
+  ###
+  Checks if a line matches with a format like:
+   {number} {number}
+  ###
+  _matches: (line) =>
+    /[0-9]*\.?[0-9]+ [0-9]*\.?[0-9]+/.test line

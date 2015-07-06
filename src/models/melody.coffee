@@ -4,7 +4,7 @@ _ = require("protolodash")
 ###
 A melody with a *tempo* and an array of *notes*.
 The array is something like: [
- { note: "a4", frequency: 441.23, duration: 245 }
+ { name: "a4", duration: 245 }
 ]
 ###
 module.exports =
@@ -23,5 +23,5 @@ class Melody
   ###
   notesWithBeats: =>
     @notes.map (note) =>
-      _.assign note,
-        duration: @beatConverter.toBeats(note.duration)
+      name: note.name,
+      duration: @beatConverter.toBeats note.duration
