@@ -3,21 +3,11 @@ _ = require("protolodash")
 ###
 Note Entity.
 
-A bar is composed by a set of signatures and a collection of notes:
-
-  signatures: {
-    time: { major: 4, minor: 4 },
-    key: "Abm",
-    clef: "G"
-  }
+  *duration* is in beats: 3/8 is a "negra con puntillo" (1/4 + 1/8)
+  *name* can be:
+    - a note
+    - a "r" (a silence)
+    - a "u" (an union or "nota ligada a la anterior")
 ###
-module.exports =
-
-class Bar
-  constructor: (@signatures, @notes) ->
-
-  ###
-  Checks that the bar is completely filled with notes
-  ###
-  isComplete: =>
-    @notes.sum("duration") is (@signatures.time.major)
+class Note
+  constructor: (@name, @duration) ->
