@@ -15,7 +15,7 @@
     "jsmidgen": "^0.1.2",
     "morgan": "^1.5.3",
     "multer": "^0.1.8",
-    "protolodash": "^3.9.4"
+    "protolodash": "^3.10.0"
   },
   "devDependencies": {
     "chai": "^2.2.0",

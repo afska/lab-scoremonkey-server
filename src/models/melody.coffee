@@ -1,4 +1,4 @@
-BeatConverter = include("converters/beatConverter")
+BeatConverter = require("./converters/beatConverter")
 _ = require("protolodash")
 
 ###
