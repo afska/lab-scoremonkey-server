@@ -1,4 +1,4 @@
-noteDictionary = include("converters/noteDictionary")
+noteDictionary = include("models/converters/noteDictionary")
 _ = require("protolodash")
 
 ###
