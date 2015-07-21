@@ -20,5 +20,4 @@ class Bar
   Checks that the bar is completely filled with notes
   ###
   isComplete: =>
-    console.log @notes.sum("duration")
     @notes.sum("duration") is (@signatures.time.major / @signatures.time.minor)
