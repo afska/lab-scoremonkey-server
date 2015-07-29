@@ -1,4 +1,4 @@
-MelodyDetector = include("models/melodyDetector")
+MelodyDetector = include("models/generators/melodyDetector")
 unlink = require("fs").unlinkSync
 _ = require("protolodash")
 
@@ -7,10 +7,10 @@ A controller that manages audio recognition.
 ###
 class MelodyController
   ###
-  Recognizes an audio file, returns the MIDI & MusicXML
+  Recognizes an audio file, returns the MIDI & MusicXML.
   ###
   recognize: (req, res) =>
-    errors = @_findErrors req
+    errors = @_parseAndFindErrors req
     if not _.isEmpty errors
       @_deleteFiles req
       return res.status(400).json errors: errors
@@ -27,9 +27,9 @@ class MelodyController
       .finally => @_deleteFiles req
 
   ###
-  Find possible errors in the request
+  Parse the numbers and find possible errors in the request.
   ###
-  _findErrors: (req) ->
+  _parseAndFindErrors: (req) ->
     errors = []
 
     if not req.files.audio?
@@ -49,7 +49,7 @@ class MelodyController
     errors
 
   ###
-  Deletes all the files of the request
+  Deletes all the files of the request.
   ###
   _deleteFiles: (req) ->
     for name, file of req.files

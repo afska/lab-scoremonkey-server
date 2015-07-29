@@ -4,13 +4,13 @@ readDir = require("fs").readdirSync
 _ = require("protolodash")
 
 ###
-A generator of melodies using an audio recognizer.
-settings = {
- filePath: "/home/user/path/audioFile.wav"
- tempo: 180
- bar: { major: 4, minor: 4 }
- clef: "G"
-}
+A generator of *melodies* using an audio recognizer.
+  settings = {
+   filePath: "/home/user/path/audioFile.wav"
+   tempo: 180
+   bar: { major: 4, minor: 4 }
+   clef: "G"
+  }
 ###
 module.exports =
 

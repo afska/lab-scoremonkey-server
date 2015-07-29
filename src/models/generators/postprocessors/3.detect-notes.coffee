@@ -2,7 +2,7 @@ noteDictionary = include("models/converters/noteDictionary")
 _ = require("protolodash")
 
 ###
-Detects the note for each group and determines if it can be merged
+Detects the note for each group and determines if it can be merged.
  Input: [[{frequency, duration}, ...], ...]
  Output: [{name, duration, canBeMerged}, ...]
 ###

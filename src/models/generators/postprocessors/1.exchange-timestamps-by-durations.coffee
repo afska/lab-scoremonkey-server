@@ -1,5 +1,5 @@
 ###
-Deletes the *timestamp*s and adds the *duration*s in ms.
+Deletes the *timestamps* and adds the *durations* in ms.
 Removes the last useless sample.
  Input: [{timestamp, frequency}, ...]
  Output: [{frequency, duration}, ...]

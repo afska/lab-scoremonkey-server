@@ -5,6 +5,7 @@ module.exports =
 
 class BeatConverter
   @BEAT: 1/4 #length of a beat.
+
   constructor: (@tempo) ->
 
   ###

@@ -2,7 +2,7 @@ Midi = require("jsmidgen")
 fs = require("fs")
 
 ###
-A MIDI File created by a *melody*
+A MIDI File created by a *melody*.
 ###
 module.exports =
 
@@ -26,15 +26,15 @@ class MidiFile
         track.addNote 0, note.name, ticks
 
   ###
-  Exports the file into a *path*
+  Exports the file into a *path*.
   ###
   save: (path) =>
     fs.writeFileSync path, @file.toBytes(), "binary"
 
   ###
-  Get ticks with jsmidigen beats convention
-   1 beat ----- 512 ticks
-   duration --- x = beats * 512
+  Get ticks with jsmidigen beats convention.
+    1 beat ----- 512 ticks
+    duration --- x = beats * 512
   ###
   _getTicks: (duration) =>
     duration * 512

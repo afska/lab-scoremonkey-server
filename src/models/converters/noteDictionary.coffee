@@ -37,7 +37,7 @@ class NoteDictionary
 
   ###
   Position of a *name* in the notes array.
-   e.g. "d#0" is 3
+    e.g. "d#0" is 3
   ###
   positionOf: (name) => @noteNames().indexOf name
 
@@ -51,7 +51,7 @@ class NoteDictionary
 
   ###
   Frequency of a *name*.
-   440 * (2^(1/12))^semitonesFromA4
+    440 * (2^(1/12))^semitonesFromA4
   ###
   _frequencyOf: (name) =>
     if name is "r" then return 0
