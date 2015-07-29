@@ -47,8 +47,7 @@ class NoteDictionary
   whatIs: (frequency) =>
     log2 = (n) => Math.log(n) / Math.log(2)
     index = (Math.round(12 * log2(frequency / @base.freq)) + @base.index).toFixed()
-    if index <= 0 then return @get "r"
-    @notes[index]
+    @notes[index] || @get "r"
 
   ###
   Frequency of a *name*.
