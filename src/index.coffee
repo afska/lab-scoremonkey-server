@@ -13,7 +13,9 @@ module.exports = =>
   app.use require("morgan") "dev" # logger
   app.use require("multer") dest: "#{__rootpath}/blobs/uploads" # multipart files
   app.use express.static("blobs") # serve blobs
-  app.use express.static("client") # serve client side
+  app.use express.static("views") # serve client side
+  app.engine "html", require("ejs").renderFile # rendering engine
+  app.set "view engine", "html" # view engine
 
   require("./routes") app
 
