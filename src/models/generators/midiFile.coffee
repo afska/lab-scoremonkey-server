@@ -1,5 +1,6 @@
 Midi = require("jsmidgen")
-fs = require("fs")
+promisify = require("bluebird").promisifyAll
+fs = promisify require("fs")
 
 ###
 A MIDI File created by a *melody*.
@@ -29,7 +30,7 @@ class MidiFile
   Exports the file into a *path*.
   ###
   save: (path) =>
-    fs.writeFileSync path, @file.toBytes(), "binary"
+    fs.writeFileAsync path, @file.toBytes(), "binary"
 
   ###
   Get ticks with jsmidigen beats convention.

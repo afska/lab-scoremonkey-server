@@ -1,6 +1,6 @@
 MelodyDetector = include("models/generators/melodyDetector")
-unlink = require("fs").unlinkSync
 MidiFile = include("models/generators/midiFile")
+fs = require("fs")
 uuid = require("uuid")
 _ = require("protolodash")
 
@@ -55,6 +55,7 @@ class MelodyController
       { name: "tempo", type: "isNumber", values: [1 .. 250], parse: true }
       { name: "major", type: "isNumber", values: [1 .. 32], parse: true }
       { name: "minor", type: "isNumber", values: [1, 4, 8, 16], parse: true }
+      { name: "key", type: "isString", values: ["Abm", "Ebm", "Bbm", "Fm", "Cm", "Gm", "Dm", "Am", "Em", "Bm", "F#m", "C#m", "G#m", "D#m", "A#m", "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F", "C", "G", "D", "A", "E", "B", "F#", "C#"] }
       { name: "clef", type: "isString", values: ["G", "C", "F"] }
     ].forEach (it) =>
       value = req.body[it.name]
@@ -69,7 +70,6 @@ class MelodyController
   ###
   _deleteFiles: (req) ->
     for name, file of req.files
-      unlink file.path
       fs.unlink file.path
 
 module.exports = (app) =>
