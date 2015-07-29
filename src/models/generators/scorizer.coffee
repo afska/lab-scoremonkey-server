@@ -18,7 +18,7 @@ class Scorizer
     new Score settings, @_buildBars(settings.signatures)
 
   ###
-  Splits the *melody* into *bars*, creating *notes*
+  Splits the *melody* into *bars*, creating *notes*.
   ###
   _buildBars: (signatures) =>
     length = signatures.time.major / signatures.time.minor
