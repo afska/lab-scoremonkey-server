@@ -1,6 +1,6 @@
 node_modules/
 src/config/env.coffee
-uploads/
+blobs/
 *.sublime-workspace
 *.log
 *.wav

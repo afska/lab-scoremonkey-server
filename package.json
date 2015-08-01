@@ -13,9 +13,11 @@
     "coffee-script": "^1.9.2",
     "express": "^4.12.4",
     "jsmidgen": "^0.1.2",
+    "mkdirp": "^0.5.1",
     "morgan": "^1.5.3",
     "multer": "^0.1.8",
-    "protolodash": "^3.10.0"
+    "protolodash": "^3.10.0",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^2.2.0",

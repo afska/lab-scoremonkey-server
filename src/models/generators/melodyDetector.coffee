@@ -1,6 +1,7 @@
 AubioPitch = include("lib/aubioPitch")
 Melody = include("models/melody")
-readDir = require("fs").readdirSync
+promisify = require("bluebird").promisifyAll
+fs = promisify require("fs")
 _ = require("protolodash")
 
 ###
@@ -24,10 +25,11 @@ class MelodyDetector
   ###
   getMelody: =>
     @recognizer.execute().then (samples) =>
-      postProcessors = readDir("#{__dirname}/postprocessors")
-        .reject (file) => file.startsWith(".") or _.contains(file, "spec")
-        .map (file) => require("./postprocessors/#{file}").bind @, @settings
+      fs.readdirAsync("#{__dirname}/postprocessors").then (dir) =>
+        postProcessors = dir
+          .reject (file) => file.startsWith(".") or _.contains(file, "spec")
+          .map (file) => require("./postprocessors/#{file}").bind @, @settings
 
-      notes = (_.flow.apply @, postProcessors)(samples)
+        notes = (_.flow.apply @, postProcessors)(samples)
 
-      new Melody @settings.tempo, notes
+        new Melody @settings.tempo, notes
