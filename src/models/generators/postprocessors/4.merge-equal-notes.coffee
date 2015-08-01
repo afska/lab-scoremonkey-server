@@ -2,7 +2,7 @@ noteDictionary = include("models/converters/noteDictionary")
 _ = require("protolodash")
 
 ###
-Merges the notes with the same name that can be merged
+Merges the notes with the same name that can be merged.
  Input: [{name, duration, canBeMerged}, ...]
  Output: [{name, duration}, ...]
 ###

@@ -1,9 +1,6 @@
 ###
-Score Entity.
-
-A score is composed by a collection of bars and settings defined as:
-
-  *settings* = {
+A score, composed by a collection of *bars* and *settings* defined as:
+  settings = {
     tempo: 120,
     signatures: {
       time: { major: 4, minor: 4 },
