@@ -1,8 +1,9 @@
 Midi = require("jsmidgen")
-fs = require("fs")
+promisify = require("bluebird").promisifyAll
+fs = promisify require("fs")
 
 ###
-A MIDI File created by a *melody*
+A MIDI File created from a *melody*.
 ###
 module.exports =
 
@@ -15,8 +16,9 @@ class MidiFile
     track.setTempo melody.tempo
 
     #notes convertion
-    melody.notesWithBeats().forEach (note, i) =>
-      previousNote = melody.notes[i-1]
+    notes = melody.notesWithBeats()
+    notes.forEach (note, i) =>
+      previousNote = notes[i-1]
       ticks = @_getTicks note.duration
 
       if note.name is "r"
@@ -25,15 +27,15 @@ class MidiFile
         track.addNote 0, note.name, ticks
 
   ###
-  Exports the file into a *path*
+  Exports the file into a *path*.
   ###
   save: (path) =>
-    fs.writeFileSync path, @file.toBytes(), "binary"
+    fs.writeFileAsync path, @file.toBytes(), "binary"
 
   ###
-  Get ticks with jsmidigen beats convention
-   1 beat ----- 512 ticks
-   duration --- x = beats * 512
+  Get ticks with jsmidigen beats convention.
+    1 beat ----- 512 ticks
+    duration --- x = beats * 512
   ###
   _getTicks: (duration) =>
     duration * 512

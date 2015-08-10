@@ -11,18 +11,23 @@
     "bluebird": "^2.9.25",
     "body-parser": "^1.12.4",
     "coffee-script": "^1.9.2",
+    "ejs": "^2.3.3",
     "express": "^4.12.4",
     "jsmidgen": "^0.1.2",
+    "object-to-xml": "^1.0.0",
+    "mkdirp": "^0.5.1",
     "morgan": "^1.5.3",
     "multer": "^0.1.8",
-    "protolodash": "^3.9.4"
+    "protolodash": "^3.10.0",
+    "uuid": "^2.0.1"
   },
   "devDependencies": {
     "chai": "^2.2.0",
     "grunt": "^0.4.5",
     "grunt-mocha-test": "^0.12.7",
     "grunt-nodemon": "^0.4.0",
-    "load-grunt-tasks": "^3.1.0"
+    "load-grunt-tasks": "^3.1.0",
+    "mocha": "^1.20.0"
   },
   "engines": {
     "node": ">=0.10.0"

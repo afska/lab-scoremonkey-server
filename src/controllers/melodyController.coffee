@@ -1,18 +1,18 @@
-MelodyDetector = include("models/melodyDetector")
-MidiFile = include("models/midiFile")
-unlink = require("fs").unlinkSync
+MelodyDetector = include("models/generators/melodyDetector")
+MidiFile = include("models/generators/midiFile")
+fs = require("fs")
+uuid = require("uuid")
 _ = require("protolodash")
 
 ###
 A controller that manages audio recognition.
 ###
 class MelodyController
-
   ###
-  Recognizes an audio file, returns the MIDI & MusicXML
+  Recognizes an audio file, returns the links to the MIDI and the Score.
   ###
   recognize: (req, res) =>
-    errors = @_findErrors req
+    errors = @_parseAndFindErrors req
     if not _.isEmpty errors
       @_deleteFiles req
       return res.status(400).json errors: errors
@@ -26,14 +26,26 @@ class MelodyController
     new MelodyDetector(settings)
       .getMelody()
       .then (melody) =>
-        new MidiFile(melody).save "monkeybirthday.mid"
-        res.json melody
+        @_generateMidiAndMusicXml(melody).then (links) =>
+          res.json links
       .finally => @_deleteFiles req
 
   ###
-  Find possible errors in the request
+  Generates and stores the MIDI and the MusicXML file.
+  It returns a promises with links.
   ###
-  _findErrors: (req) ->
+  _generateMidiAndMusicXml: (melody) =>
+    id = uuid.v4()
+    new MidiFile(melody)
+      .save("#{__rootpath}/blobs/midis/#{id}.mid")
+      .then =>
+        midi: "#{process.env.DOMAIN}/midis/#{id}.mid"
+        score: "#{process.env.DOMAIN}/scores/coming_soon"
+
+  ###
+  Parse the numbers and find possible errors in the request.
+  ###
+  _parseAndFindErrors: (req) ->
     errors = []
 
     if not req.files.audio?
@@ -43,6 +55,7 @@ class MelodyController
       { name: "tempo", type: "isNumber", values: [1 .. 250], parse: true }
       { name: "major", type: "isNumber", values: [1 .. 32], parse: true }
       { name: "minor", type: "isNumber", values: [1, 4, 8, 16], parse: true }
+      { name: "key", type: "isString", values: ["Abm", "Ebm", "Bbm", "Fm", "Cm", "Gm", "Dm", "Am", "Em", "Bm", "F#m", "C#m", "G#m", "D#m", "A#m", "Cb", "Gb", "Db", "Ab", "Eb", "Bb", "F", "C", "G", "D", "A", "E", "B", "F#", "C#"] }
       { name: "clef", type: "isString", values: ["G", "C", "F"] }
     ].forEach (it) =>
       value = req.body[it.name]
@@ -53,11 +66,11 @@ class MelodyController
     errors
 
   ###
-  Deletes all the files of the request
+  Deletes all the files of the request.
   ###
   _deleteFiles: (req) ->
     for name, file of req.files
-      unlink file.path
+      fs.unlink file.path
 
 module.exports = (app) =>
   ctrl = new MelodyController()

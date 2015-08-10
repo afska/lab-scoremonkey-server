@@ -3,6 +3,11 @@ noteDictionary = require("./noteDictionary")
 require("protolodash")
 
 describe "noteDictionary", ->
+  r = a4 = null
+  beforeEach ->
+    r = name: "r", frequency: 0
+    a4 = name: "a4", frequency: 440
+
   it "should return all the note names in 10 octaves", ->
     names = noteDictionary.noteNames()
 
@@ -14,15 +19,17 @@ describe "noteDictionary", ->
 
   it "should return the info of a note", ->
     noteDictionary.get "a4"
-      .should.be.eql note: "a4", frequency: 440
+      .should.be.eql name: "a4", frequency: 440
 
   it "should return the position of a note", ->
     noteDictionary.positionOf "a4"
       .should.be.eql 57
 
-  it "should can recognize a note by approximating frequencies", ->
-    r = note: "r", frequency: 0
-    a4 = note: "a4", frequency: 440
+  describe "whatIs", ->
+    it "should can recognize a note by approximating frequencies", ->
+      noteDictionary.whatIs(10).should.be.eql r
+      noteDictionary.whatIs(430).should.be.eql a4
 
-    noteDictionary.whatIs(10).should.be.eql r
-    noteDictionary.whatIs(430).should.be.eql a4
+    it "should return a rest if the frequency is out of bounds", ->
+      noteDictionary.whatIs(-70).should.be.eql r
+      noteDictionary.whatIs(99999).should.be.eql r
