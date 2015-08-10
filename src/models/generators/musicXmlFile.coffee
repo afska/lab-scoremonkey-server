@@ -2,6 +2,7 @@ Midi = require("jsmidgen")
 promisify = require("bluebird").promisifyAll
 fs = promisify require("fs")
 o2x = require('object-to-xml');
+_ = require("protolodash")
 
 ###
 A MusicXml File created from a *score*.
@@ -10,40 +11,55 @@ module.exports =
 
 class MusicXmlFile
   constructor: (score) ->
-    @file = {
+    @file =
       '?xml version=\"1.0\" encoding=\"UTF-8\"?' : null,
       '!DOCTYPE score-partwise PUBLIC \"-//Recordare//DTD MusicXML 1.0 Partwise//EN\"
                                 \"http://www.musicxml.org/dtds/partwise.dtd\"' : null,
-      }
+      'score-partwise' :
+        '#' :
+          'part-list' :
+            'score-part' :
+              '@' :
+                id : 'P1'
+              ,
+              '#' :
+                'part-name': 'MusicXML Part'
+          ,
+          'part' :
+            '@' :
+              id : 'P1'
+            ,
+            '#' :
+              @_mapBars(score)
 
 
-  ###
-  var obj = {
-    '?xml version=\"1.0\" encoding=\"UTF-8\"?' : null,
-    request : {
-      '@' : {
-        type : 'product',
-        id : 12344556
-      },
-      '#' : {
-        query : {
-          vendor : 'redhat',
-          name : 'linux'
-        }
-      }
-    }
-  };
-  ###
 
   ###
-  <?xml version="1.0" encoding="iso-8859-1"?>
-  <request type="product" id="12344556">
-    <query>
-      <vendor>redhat</vendor>
-      <name>linux</name>
-    </query>
-  </request>
+  Maps the bars into XML notation.
   ###
+  _mapBars: (score) =>
+
+    mesureNum = 1;
+    mappedBars = {}
+
+    for bar in score.bars
+      mappedBar = 'measure' :
+        '@' :
+          'number' : mesureNum
+        '#' :
+          if mesureNum == 1
+            'attributes' :
+              'divisions' : 1,
+              'key':
+                'fifths': 0,
+                'mode': 'major'
+
+      _.assign(mappedBars, mappedBar)
+      mesureNum += 1
+
+    mappedBars
+
+
 
 
   ###
@@ -52,9 +68,10 @@ class MusicXmlFile
   convertScore: =>
     o2x(@file)
 
+
   ###
   Exports the file into a *path*.
   ###
   save: (path) =>
-    fs.writeFileAsync path, convertScore()
+    fs.writeFileAsync path, @convertScore()
 
