@@ -25,7 +25,7 @@ class MusicXmlFile
               '#' :
                 'part-name': 'MusicXML Part'
           ,
-          'part' :
+          part :
             '@' :
               id : 'P1'
             ,
@@ -42,20 +42,26 @@ class MusicXmlFile
     mesureNum = 1;
     mappedBars = {}
 
-    for bar in score.bars
-      mappedBar = 'measure' :
+
+    mappedBars = 'measure' : [
+      for bar in score.bars
         '@' :
           'number' : mesureNum
         '#' :
-          if mesureNum == 1
-            'attributes' :
-              'divisions' : 1,
-              'key':
-                'fifths': 0,
-                'mode': 'major'
+          ###if mesureNum == 1###
+          'attributes' :
+            'divisions' : 1,
+            'key':
+              'fifths': 0,
+              'mode': 'major'
 
-      _.assign(mappedBars, mappedBar)
-      mesureNum += 1
+          'note' : [bar.notes]
+
+
+
+    ]
+
+    #mesureNum += 1
 
     mappedBars
 
