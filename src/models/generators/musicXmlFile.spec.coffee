@@ -59,7 +59,8 @@ describe "musicXmlFile", ->
     # tengo que hacer algo para poder testear sin poner los \n"
     musicXmlExample = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd" />\n'
 
-    new musicXmlFile(scoreExample).save('/home/javiersorella/Desktop/MusicXMLExample.xml')
+    #BORRAR cuando termine de testear posta:
+    #new musicXmlFile(scoreExample).save('/home/javiersorella/Desktop/MusicXMLExample.xml')
 
     #new musicXmlFile(scoreExample).convertScore().should.be.equal musicXmlExample
 
