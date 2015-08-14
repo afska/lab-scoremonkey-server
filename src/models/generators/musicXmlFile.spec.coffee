@@ -1,5 +1,9 @@
-require("chai").Should()
+chai = require("chai")
+expect  = require('chai').expect;
 musicXmlFile = require("./musicXmlFile")
+chaiXml = require('chai-xml');
+
+chai.use(chaiXml);
 
 describe "musicXmlFile", ->
   it "converts a score object to XML as spected", ->
@@ -56,13 +60,86 @@ describe "musicXmlFile", ->
         }
       ]
 
-    # tengo que hacer algo para poder testear sin poner los \n"
-    musicXmlExample = '<?xml version="1.0" encoding="UTF-8"?>\n<!DOCTYPE score-partwise PUBLIC "-//Recordare//DTD MusicXML 1.0 Partwise//EN" "http://www.musicxml.org/dtds/partwise.dtd" />\n'
 
-    #BORRAR cuando termine de testear posta:
-    #new musicXmlFile(scoreExample).save('/home/javier/Escritorio/MusicXMLExample.xml')
+    musicXmlExample = '<?xml version="1.0" encoding="UTF-8"?>
+    <score-partwise>
+      <part-list>
+        <score-part id="P1">
+          <part-name>MusicXML Part</part-name>
+        </score-part>
+      </part-list>
+      <part id="P1">
+        <measure number="1">
+          <attributes>
+            <divisions>1</divisions>
+            <key>
+              <fifths>0</fifths>
+              <mode>major</mode>
+            </key>
+            <time>
+              <beats>4</beats>
+              <beat-type>4</beat-type>
+            </time>
+            <clef>
+              <sign>G</sign>
+              <line>2</line>
+            </clef>
+          </attributes>
+          <note>
+            <pitch>
+              <step>C</step>
+              <octave>4</octave>
+            </pitch>
+            <duration>1</duration>
+            <voice>1</voice>
+            <type>quarter</type>
+          </note>
+          <note>
+            <pitch>
+              <step>C</step>
+              <octave>4</octave>
+              <alter>1</alter>
+            </pitch>
+            <duration>1</duration>
+            <voice>1</voice>
+            <type>quarter</type>
+          </note>
+          <note>
+            <pitch>
+              <step>D</step>
+              <octave>4</octave>
+            </pitch>
+            <duration>1</duration>
+            <voice>1</voice>
+            <type>quarter</type>
+          </note>
+          <note>
+            <pitch>
+              <step>D</step>
+              <octave>4</octave>
+              <alter>1</alter>
+            </pitch>
+            <duration>1</duration>
+            <voice>1</voice>
+            <type>quarter</type>
+          </note>
+        </measure>
+        <measure number="2">
+          <attributes />
+          <note>
+            <rest />
+            <duration>1</duration>
+            <voice>1</voice>
+            <type>whole</type>
+          </note>
+        </measure>
+      </part>
+    </score-partwise>
+    '
 
-    #new musicXmlFile(scoreExample).convertScore().should.be.equal musicXmlExample
+    convertedScore = new musicXmlFile(scoreExample).convertScore()
+
+    expect(convertedScore).xml.to.equal(musicXmlExample);
 
 
 

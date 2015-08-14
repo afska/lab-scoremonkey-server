@@ -1,4 +1,3 @@
-Midi = require("jsmidgen")
 promisify = require("bluebird").promisifyAll
 fs = promisify require("fs")
 o2x = require('object-to-xml');
@@ -29,8 +28,6 @@ class MusicXmlFile
             ,
             '#' :
               @_mapBars(score)
-
-
 
   ###
   Maps the bars into XML notation.
@@ -81,7 +78,7 @@ class MusicXmlFile
       if note.name != "r"
         mappedNote = {
           pitch :
-            step : note.name.charAt(0)
+            step : note.name.charAt(0).toUpperCase()
             octave : note.name.slice(-1)
 
           duration : 1
@@ -119,7 +116,6 @@ class MusicXmlFile
     durationToName[duration]
 
 
-
   ###
   Converts the Score into a Xml.
   ###
@@ -132,4 +128,3 @@ class MusicXmlFile
   ###
   save: (path) =>
     fs.writeFileAsync path, @convertScore()
-

@@ -26,7 +26,7 @@ describe "noteDictionary", ->
       .should.be.eql 57
 
   describe "whatIs", ->
-    it "should can recognize a note by approximating frequencies", ->
+    it "should recognize a note by approximating frequencies", ->
       noteDictionary.whatIs(10).should.be.eql r
       noteDictionary.whatIs(430).should.be.eql a4
 
