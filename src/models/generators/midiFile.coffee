@@ -3,7 +3,7 @@ promisify = require("bluebird").promisifyAll
 fs = promisify require("fs")
 
 ###
-A MIDI File created by a *melody*.
+A MIDI File created from a *melody*.
 ###
 module.exports =
 
