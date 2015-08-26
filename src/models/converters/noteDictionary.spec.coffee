@@ -2,10 +2,8 @@ require("chai").Should()
 noteDictionary = require("./noteDictionary")
 
 describe "noteDictionary", ->
-  r = a4 = null
-  beforeEach ->
-    r = name: "r", frequency: 0
-    a4 = name: "a4", frequency: 440
+  r = name: "r", frequency: 0
+  a4 = name: "a4", frequency: 440
 
   it "should return all the note names in 10 octaves", ->
     names = noteDictionary.noteNames()

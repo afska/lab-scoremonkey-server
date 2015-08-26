@@ -25,22 +25,28 @@ class Scorizer
   _buildBars: (signatures) =>
     length = signatures.time.major / signatures.time.minor
 
-    groupNotes(@melody.notesWithBeats(), length, markAsSplitted: true).map (group) =>
-      new Bar signatures, @_buildNotes(group)
-
-  ###
-  Splits the notes into many, adding "union" notes if it's necessary.
-  ###
-  _buildNotes: (group) =>
-    group
-      .map (note) =>
-        name = if note.splitted then "u" else note.name
-        notes = [] ; leftover = 1
-        while leftover > 0
-          finalName = if _.isEmpty notes then name else "u"
-
-          closest = musicalFigureDictionary.findClosestDuration note.duration
-          notes.push new Note(finalName, closest)
-          leftover = note.duration - closest
-        notes
+    validNotes = @melody.notesWithBeats()
+      .map @_buildNotes
       .flatten()
+
+    groupNotes(validNotes, length, markAsSplitted: true).map (group) =>
+      new Bar signatures, group.map (note) =>
+        new Note(
+          if note.splitted then "u" else note.name,
+          note.duration
+        )
+
+  ###
+  Splits the notes into many "valid" notes, adding "unions" if it's necessary.
+  ###
+  _buildNotes: (note) =>
+    notes = [] ; leftover = note.duration
+
+    while leftover > 0
+      finalName = if _.isEmpty notes then note.name else "u"
+
+      closest = musicalFigureDictionary.findClosestDuration leftover
+      notes.push name: finalName, duration: closest
+      leftover -= closest
+
+    notes
