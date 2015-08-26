@@ -4,7 +4,7 @@ require("protolodash")
 A dictionary for finding all the playable notes with each frequency.
 "c#5" is c sharp at the 5th octave, "r" is a rest.
 ###
-module.exports = new #singleton
+module.exports = new # singleton
 
 class NoteDictionary
   constructor: ->

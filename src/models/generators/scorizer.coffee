@@ -24,6 +24,8 @@ class Scorizer
     length = signatures.time.major / signatures.time.minor
 
     groupNotes(@melody.notesWithBeats(), length, markAsSplitted: true).map (group) =>
+      validDurations = []
+
       new Bar signatures, group.map (note) =>
         new Note(
           if note.splitted then "u" else note.name,

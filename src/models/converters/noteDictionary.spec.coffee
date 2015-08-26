@@ -1,6 +1,5 @@
 require("chai").Should()
 noteDictionary = require("./noteDictionary")
-require("protolodash")
 
 describe "noteDictionary", ->
   r = a4 = null
