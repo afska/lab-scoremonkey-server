@@ -4,7 +4,7 @@ Scorizer = require("./scorizer")
 
 describe "Scorizer", ->
   shouldBeEquivalent = (one, another) =>
-    #(removes the methods in the objects for the comparison)
+    # (removes the methods in the objects for the comparison)
     clean = (o) => JSON.parse JSON.stringify o
     clean(one).should.be.eql clean(another)
 
