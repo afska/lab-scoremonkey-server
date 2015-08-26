@@ -3,7 +3,7 @@ Bar = include("models/bar")
 Note = include("models/note")
 groupNotes = include("models/converters/groupNotes")
 musicalFigureDictionary = include("models/converters/musicalFigureDictionary")
-require("protolodash")
+_ = require("protolodash")
 
 ###
 A *Score* builder from a *melody*.
@@ -32,15 +32,15 @@ class Scorizer
   Splits the notes into many, adding "union" notes if it's necessary.
   ###
   _buildNotes: (group) =>
-    group.map (note) =>
-      name = if note.splitted then "u" else note.name
+    group
+      .map (note) =>
+        name = if note.splitted then "u" else note.name
+        notes = [] ; leftover = 1
+        while leftover > 0
+          finalName = if _.isEmpty notes then name else "u"
 
-      notes = [] ; leftOver = 1
-      while leftover > 0
-        finalName = if notes is [] then name else "u"
-
-        closest = musicalFigureDictionary.findClosestDuration note.duration
-        notes.push new Note(finalName, closest)
-        leftover = note.duration - closest
-
-      notes.flatten()
+          closest = musicalFigureDictionary.findClosestDuration note.duration
+          notes.push new Note(finalName, closest)
+          leftover = note.duration - closest
+        notes
+      .flatten()
