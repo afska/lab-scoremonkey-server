@@ -1,4 +1,5 @@
 express = require("express")
+mongoose = require("mongoose")
 _ = require("protolodash")
 
 ###
@@ -19,10 +20,13 @@ module.exports = =>
 
   require("./routes") app
 
-  # ensure the blobs directories exist
+  # ensure the blobs directories exist...
   mkdirp = require("mkdirp")
-  mkdirp "#{__rootpath}/blobs/midis"
-  mkdirp "#{__rootpath}/blobs/musicxmls"
+  mkdirp "#{__rootpath}/blobs/uploads"
 
+  # connect to mongodb...
+  mongoose.connect process.env.MONGO_URI || "mongodb://localhost/scoremonkey"
+
+  # listen...
   app.listen port
   console.log "[!] Listening in port #{port}"
