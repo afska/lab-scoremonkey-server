@@ -34,7 +34,7 @@ class MelodyController
 
   ###
   Generates and stores the MIDI and the MusicXML file.
-  It returns two promises with links.
+  It returns a promise with links.
   ###
   _generateMidiAndMusicXml: (melody) =>
     id = uuid.v4()
