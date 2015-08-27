@@ -1,7 +1,6 @@
 Midi = require("jsmidgen")
 promisify = require("bluebird").promisifyAll
 fs = promisify require("fs")
-streamifier = require("streamifier")
 
 ###
 A MIDI File created from a *melody*.
