@@ -61,7 +61,6 @@ describe "Scorizer", ->
     ]
 
     settings = tempo: 60, signatures: signatures
-    debugger
     score = new Scorizer(melody).build settings
 
     shouldBeEquivalent score,
