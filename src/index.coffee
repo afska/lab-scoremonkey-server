@@ -8,6 +8,7 @@ A http server that listen to connections and delegates requests to the controlle
 module.exports = =>
   _.assign process.env, try require("./config/env")
   port = process.env.PORT || 8081
+  require("heroku-self-ping") process.env.DOMAIN # hack for heroku sleep time
 
   app = express()
   app.use require("body-parser").json limit: "50mb" # json parser
