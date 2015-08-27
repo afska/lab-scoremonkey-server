@@ -20,6 +20,7 @@ Slack: https://losborbotones.slack.com
 ```bash
 # install nodejs
 # install npm (node package manager)
+# install mongodb-server
 
 npm install -g grunt-cli
 npm install

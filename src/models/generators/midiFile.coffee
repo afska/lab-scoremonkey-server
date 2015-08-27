@@ -1,6 +1,7 @@
 Midi = require("jsmidgen")
 promisify = require("bluebird").promisifyAll
 fs = promisify require("fs")
+streamifier = require("streamifier")
 
 ###
 A MIDI File created from a *melody*.
@@ -27,10 +28,20 @@ class MidiFile
         track.addNote 0, note.name, ticks
 
   ###
-  Exports the file into a *path*.
+  Returns a readable stream with the bytes.
+  ###
+  stream: => streamifier.createReadStream @_bytes()
+
+  ###
+  Saves the file into a *path* of the filesystem.
   ###
   save: (path) =>
-    fs.writeFileAsync path, @file.toBytes(), "binary"
+    fs.writeFileAsync path, @_bytes(), "binary"
+
+  ###
+  Returns a buffer with the bytes.
+  ###
+  _bytes: => @file.toBytes()
 
   ###
   Get ticks with jsmidigen beats convention.
