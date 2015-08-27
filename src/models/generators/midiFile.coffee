@@ -3,15 +3,6 @@ promisify = require("bluebird").promisifyAll
 fs = promisify require("fs")
 streamifier = require("streamifier")
 
-Buffer::toArrayBuffer = ->
-  arrayBuffer = new ArrayBuffer @length
-  view = new Uint8Array arrayBuffer
-
-  for i in [0 .. @length]
-    view[i] = @[i]
-
-  arrayBuffer
-
 ###
 A MIDI File created from a *melody*.
 ###
