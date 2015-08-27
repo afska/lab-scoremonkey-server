@@ -3,6 +3,15 @@ promisify = require("bluebird").promisifyAll
 fs = promisify require("fs")
 streamifier = require("streamifier")
 
+Buffer::toArrayBuffer = ->
+  arrayBuffer = new ArrayBuffer @length
+  view = new Uint8Array arrayBuffer
+
+  for i in [0 .. @length]
+    view[i] = @[i]
+
+  arrayBuffer
+
 ###
 A MIDI File created from a *melody*.
 ###
@@ -13,10 +22,10 @@ class MidiFile
     @file = new Midi.File()
     track = @file.addTrack()
 
-    #tempo related
+    # tempo related
     track.setTempo melody.tempo
 
-    #notes convertion
+    # notes convertion
     notes = melody.notesWithBeats()
     notes.forEach (note, i) =>
       previousNote = notes[i-1]
@@ -28,20 +37,16 @@ class MidiFile
         track.addNote 0, note.name, ticks
 
   ###
-  Returns a readable stream with the bytes.
+  Returns a buffer with the bytes.
   ###
-  stream: => streamifier.createReadStream @_bytes()
+  bytes: =>
+    new Buffer(@file.toBytes(), "ascii")
 
   ###
   Saves the file into a *path* of the filesystem.
   ###
   save: (path) =>
-    fs.writeFileAsync path, @_bytes(), "binary"
-
-  ###
-  Returns a buffer with the bytes.
-  ###
-  _bytes: => @file.toBytes()
+    fs.writeFileAsync path, @bytes()
 
   ###
   Get ticks with jsmidigen beats convention.

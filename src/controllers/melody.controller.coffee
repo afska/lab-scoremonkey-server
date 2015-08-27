@@ -38,7 +38,7 @@ class MelodyController
   ###
   _generateMidiAndMusicXml: (melody) =>
     id = uuid.v4()
-    midi = new MidiFile(melody).stream()
+    midi = new MidiFile(melody).bytes()
     new GridFs().write("#{id}.mid", midi).then =>
       midi: "#{process.env.DOMAIN}/midis/#{id}.mid"
       score: "#{process.env.DOMAIN}/scores/coming_soon"
