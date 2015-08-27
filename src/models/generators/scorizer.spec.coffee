@@ -26,31 +26,32 @@ describe "Scorizer", ->
     settings = tempo: 60, signatures: signatures
     score = new Scorizer(melody).build settings
 
-    score.settings.should.be.eql settings
-    shouldBeEquivalent score.bars, [
-      {
-        signatures: signatures
-        notes: [
-          { name: "c4", duration: 1/4 }
-          { name: "c#4", duration: 1/2 }
-          { name: "a5", duration: 1/4 }
-        ]
-      }
-      {
-        signatures: signatures
-        notes: [
-          { name: "u", duration: 1/8 }
-          { name: "e8", duration: 1/8 }
-          { name: "r", duration: 3/4 }
-        ]
-      }
-      {
-        signatures: signatures
-        notes: [
-          { name: "d4", duration: 1/16 }
-        ]
-      }
-    ]
+    shouldBeEquivalent score,
+      settings: settings
+      bars: [
+        {
+          signatures: signatures
+          notes: [
+            { name: "c4", duration: 1/4 }
+            { name: "c#4", duration: 1/2 }
+            { name: "a5", duration: 1/4 }
+          ]
+        }
+        {
+          signatures: signatures
+          notes: [
+            { name: "u", duration: 1/8 }
+            { name: "e8", duration: 1/8 }
+            { name: "r", duration: 3/4 }
+          ]
+        }
+        {
+          signatures: signatures
+          notes: [
+            { name: "d4", duration: 1/16 }
+          ]
+        }
+      ]
 
   it "detects valid durations correctly", ->
     melody = new Melody 60, [
@@ -60,23 +61,25 @@ describe "Scorizer", ->
     ]
 
     settings = tempo: 60, signatures: signatures
+    debugger
     score = new Scorizer(melody).build settings
 
-    score.settings.should.be.eql settings
-    shouldBeEquivalent score.bars, [
-      {
-        signatures: signatures
-        notes: [
-          { name: "c4", duration: 1/2 + 1/4 }
-          { name: "c#4", duration: 1/4 }
-        ]
-      }
-      {
-        signatures: signatures
-        notes: [
-          { name: "u", duration: 1/16 }
-          { name: "e5", duration: 1/2 + 1/4 }
-          { name: "u", duration: 1/4 + 1/8 }
-        ]
-      }
-    ]
+    shouldBeEquivalent score,
+      settings: settings
+      bars:[
+        {
+          signatures: signatures
+          notes: [
+            { name: "c4", duration: 1/2 + 1/4 }
+            { name: "c#4", duration: 1/4 }
+          ]
+        }
+        {
+          signatures: signatures
+          notes: [
+            { name: "u", duration: 1/16 }
+            { name: "e5", duration: 1/2 + 1/4 }
+            { name: "u", duration: 1/4 + 1/8 }
+          ]
+        }
+      ]
