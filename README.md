@@ -64,6 +64,9 @@ https://toolbelt.heroku.com/
 ##### remote shell:
 ```heroku run /bin/bash --app scoremonkey```
 
+##### remote logs:
+```heroku logs --tail --app scoremonkey```
+
 ##### add git remote and deploy
 ```bash
 heroku git:remote --app scoremonkey
