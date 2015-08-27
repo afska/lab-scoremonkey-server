@@ -26,7 +26,9 @@ class MusicalFigureDictionary
   Gets the closest valid duration of a *duration*.
   ###
   findClosestDuration: (duration) =>
-    (_.map @noteTypes, "duration").reduce (previous, current) =>
+    compare = (previous, current) =>
       isCloser = Math.abs(current - duration) < Math.abs(previous - duration)
-      itFits = duration - current >= 0
+      itFits = duration >= current
       if isCloser and itFits then current else previous
+
+    (_.map @noteTypes, "duration").reduce compare, 0

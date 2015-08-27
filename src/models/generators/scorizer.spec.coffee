@@ -70,16 +70,16 @@ describe "Scorizer", ->
         {
           signatures: signatures
           notes: [
-            { name: "c4", duration: 1/2 + 1/4 }
-            { name: "c#4", duration: 1/4 }
+            { name: "c4", duration: 1/2 + 1/4 } # half with dot
+            { name: "c#4", duration: 1/4 } # quarter
           ]
         }
         {
           signatures: signatures
           notes: [
-            { name: "u", duration: 1/16 }
-            { name: "e5", duration: 1/2 + 1/4 }
-            { name: "u", duration: 1/4 + 1/8 }
+            { name: "u", duration: 1/16 } # sixteenth
+            { name: "e5", duration: 1/2 + 1/4 } # half with dot
+            { name: "u", duration: 1/8 + 1/16 } # eighth with dot
           ]
         }
       ]
