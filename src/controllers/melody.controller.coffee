@@ -40,8 +40,9 @@ class MelodyController
     id = uuid.v4()
     midi = new MidiFile(melody).bytes()
     new GridFs().write("#{id}.mid", midi).then =>
-      midi: "#{process.env.DOMAIN}/midis/#{id}.mid"
+      midi: "#{process.env.DOMAIN}/midis/#{id}"
       score: "#{process.env.DOMAIN}/scores/coming_soon"
+      musicxml: "#{process.env.DOMAIN}/scores/coming_soon/musicxml"
 
   ###
   Parse the numbers and find possible errors in the request.
