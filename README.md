@@ -44,9 +44,9 @@ grunt test
 #### REPL shell:
 ```bash
 node
-.load globals.js
+require("./globals.js")
 #your debugging code:
-Monkey = include("domains/monkey")
+Monkey = include("domain/monkey")
 # ...
 ```
 
