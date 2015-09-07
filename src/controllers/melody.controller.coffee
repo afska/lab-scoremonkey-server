@@ -1,5 +1,6 @@
 MelodyDetector = include("models/generators/melodyDetector")
 MidiFile = include("models/generators/midiFile")
+GridFs = include("lib/gridFs")
 fs = require("fs")
 uuid = require("uuid")
 _ = require("protolodash")
@@ -28,19 +29,20 @@ class MelodyController
       .then (melody) =>
         @_generateMidiAndMusicXml(melody).then (links) =>
           res.json links
-      .finally => @_deleteFiles req
+      .finally =>
+        @_deleteFiles req
 
   ###
   Generates and stores the MIDI and the MusicXML file.
-  It returns a promises with links.
+  It returns a promise with links.
   ###
   _generateMidiAndMusicXml: (melody) =>
     id = uuid.v4()
-    new MidiFile(melody)
-      .save("#{__rootpath}/blobs/midis/#{id}.mid")
-      .then =>
-        midi: "#{process.env.DOMAIN}/midis/#{id}.mid"
-        score: "#{process.env.DOMAIN}/scores/coming_soon"
+    midi = new MidiFile(melody).bytes()
+    new GridFs().write("#{id}.mid", midi).then =>
+      midi: "#{process.env.DOMAIN}/midis/#{id}"
+      score: "#{process.env.DOMAIN}/scores/coming_soon"
+      musicxml: "#{process.env.DOMAIN}/scores/coming_soon/musicxml"
 
   ###
   Parse the numbers and find possible errors in the request.

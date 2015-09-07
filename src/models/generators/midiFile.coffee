@@ -12,10 +12,10 @@ class MidiFile
     @file = new Midi.File()
     track = @file.addTrack()
 
-    #tempo related
+    # tempo related
     track.setTempo melody.tempo
 
-    #notes convertion
+    # notes convertion
     notes = melody.notesWithBeats()
     notes.forEach (note, i) =>
       previousNote = notes[i-1]
@@ -27,10 +27,16 @@ class MidiFile
         track.addNote 0, note.name, ticks
 
   ###
-  Exports the file into a *path*.
+  Returns a buffer with the bytes.
+  ###
+  bytes: =>
+    new Buffer(@file.toBytes(), "ascii")
+
+  ###
+  Saves the file into a *path* of the filesystem.
   ###
   save: (path) =>
-    fs.writeFileAsync path, @file.toBytes(), "binary"
+    fs.writeFileAsync path, @bytes()
 
   ###
   Get ticks with jsmidigen beats convention.

@@ -3,5 +3,5 @@
 
 module.exports =
   DOMAIN: "http://localhost:8081"
-  VARIABLE_NAME: "a value"
-  ANOTHER_VARIABLE: "another value"
+  PORT: "8081"
+  MONGO_URI: "{a mongodb connection string}"
