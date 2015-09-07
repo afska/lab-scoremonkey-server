@@ -25,12 +25,10 @@ class MelodyDetector
   ###
   getMelody: =>
     @recognizer.execute().then (samples) =>
-      path = "#{__dirname}/postprocessors"
-
-      fs.readdirAsync(path).then (dir) =>
+      fs.readdirAsync("#{__dirname}/postprocessors").then (dir) =>
         postProcessors = dir
           .reject (file) => file.startsWith(".") or _.contains(file, "spec")
-          .map (file) => require("#{path}/#{file}").bind @, @settings
+          .map (file) => require("./postprocessors/#{file}").bind @, @settings
 
         notes = (_.flow.apply @, postProcessors)(samples)
 
