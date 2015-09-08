@@ -23,6 +23,6 @@ describe "musicalFigureDictionary", ->
       musicalFigureDictionary.findClosestDuration(1/4 + 3/16)
         .should.eql 1/4 + 1/8
 
-    it "the closest always is lower than the value", ->
+    it "the closest is always lower than the value", ->
       musicalFigureDictionary.findClosestDuration(15/16)
         .should.eql 1/2 + 1/4
