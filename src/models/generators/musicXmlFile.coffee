@@ -54,7 +54,7 @@ class MusicXmlFile
 
 
   ###
-  Get atributes.
+  Get atributes for a MusicXML measure (bar).
   ###
   _getAtributes: (bar) =>
     {
@@ -67,11 +67,11 @@ class MusicXmlFile
         'beat-type' : bar.signatures.time.minor
       'clef':
         'sign' : bar.signatures.clef
-        'line' : 2
+        'line' :  @_getClefLine(bar.signatures.clef)
     }
 
   ###
-  Maps the notes.
+  Maps the notes into a MusicXML object.
   ###
   _mapNotes: (notes) =>
     for note in notes
@@ -83,37 +83,52 @@ class MusicXmlFile
 
           duration : 1
           voice : 1
-          type : @_noteType(note.duration)
+          type : @_noteType(note.duration).type
         }
 
         if note.name.charAt(1) == "#"
           _.assign mappedNote.pitch , {alter : "1"}
         if note.name.charAt(1) == "b"
           _.assign mappedNote.pitch , {alter : "-1"}
+        if note.dot == true
+          _.assign mappedNote , {dot : null}
 
       else
         mappedNote = {
           rest : null
           duration : 1
           voice : 1
-          type : @_noteType(note.duration)
+          type : @_noteType(note.duration).type
         }
 
       note = mappedNote
 
 
   ###
-  Returns the name of the note type.
+  Receives a duration and returns a note with type information with the format:
+
+  note:{
+    type: String
+    duration: Float
+    dot: Boolean
+  }
   ###
   _noteType: (duration) =>
-    durationToName = []
-    durationToName[1] = 'whole'
-    durationToName[0.5] = 'half'
-    durationToName[0.25] = 'quarter'
-    durationToName[0.125] = 'eighth'
-    durationToName[0.0625] = 'sixteenth'
+    noteTypes = ["whole", "half", "quarter", "eighth", "sixteenth"]
+    .map (typeName, i) => [
+      { type: typeName, duration: 1 / Math.pow(2, i), dot: false }
+      { type: typeName, duration: 1 / Math.pow(2, i) + (1 / Math.pow(2, i + 1)) / 2, dot: true }
+    ]
+    .flatten()
 
-    durationToName[duration]
+    (noteTypes.find { duration })
+
+  ###
+  Get the pentagram line for a clef.
+  ###
+  _getClefLine: (clefName) =>
+    associatedLine = {'G': 2, 'F': 4, 'C': 3}
+    associatedLine[clefName]
 
 
   ###

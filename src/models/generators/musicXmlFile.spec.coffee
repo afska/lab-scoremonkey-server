@@ -16,7 +16,7 @@ describe "musicXmlFile", ->
             major: 4
             minor: 4
           key: 'Abm'
-          clef: 'G'
+          clef: 'F'
       bars: [
         {
           signatures:
@@ -24,7 +24,7 @@ describe "musicXmlFile", ->
               major: 4
               minor: 4
             key: 'Abm'
-            clef: 'G'
+            clef: 'F'
           notes: [
             {
               name:'c4'
@@ -39,8 +39,9 @@ describe "musicXmlFile", ->
               duration: 1/4
             }
             {
-              name:'d#4'
-              duration: 1/4
+              name:'db4'
+              duration: 1/8
+              dot: true
             }
           ]
         }
@@ -50,7 +51,7 @@ describe "musicXmlFile", ->
               major: 4
               minor: 4
             key: 'Abm'
-            clef: 'G'
+            clef: 'F'
           notes: [
             {
               name:'r'
@@ -81,8 +82,8 @@ describe "musicXmlFile", ->
               <beat-type>4</beat-type>
             </time>
             <clef>
-              <sign>G</sign>
-              <line>2</line>
+              <sign>F</sign>
+              <line>4</line>
             </clef>
           </attributes>
           <note>
@@ -117,11 +118,12 @@ describe "musicXmlFile", ->
             <pitch>
               <step>D</step>
               <octave>4</octave>
-              <alter>1</alter>
+              <alter>-1</alter>
             </pitch>
             <duration>1</duration>
             <voice>1</voice>
-            <type>quarter</type>
+            <type>eighth</type>
+            <dot />
           </note>
         </measure>
         <measure number="2">
@@ -136,6 +138,9 @@ describe "musicXmlFile", ->
       </part>
     </score-partwise>
     '
+
+    #borrar esta linea antes de hacer Commit!!!!
+    new musicXmlFile(scoreExample).save('/home/javier/Escritorio/musicXmlExample.xml')
 
     convertedScore = new musicXmlFile(scoreExample).convertScore()
 
