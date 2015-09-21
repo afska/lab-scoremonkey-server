@@ -26,14 +26,14 @@ describe "groupNotes", ->
     ], 5, markAsSplitted: true).should.eql [
       [
         { duration: 2 }
-        { duration: 3 }
+        { duration: 3, splitted: 't'}
       ]
       [
-        { duration: 1, splitted: true }
-        { duration: 4 }
+        { duration: 1, splitted: 'u' }
+        { duration: 4, splitted: 't'}
       ]
       [
-        { duration: 1, splitted: true }
+        { duration: 1, splitted: 'u' }
         { duration: 4 }
       ]
       [

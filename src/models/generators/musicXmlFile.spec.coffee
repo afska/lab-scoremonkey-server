@@ -41,7 +41,7 @@ describe "musicXmlFile", ->
             {
               name:'db4'
               duration: 1/8
-              dot: true
+              splitted: 't'
             }
           ]
         }
@@ -54,8 +54,14 @@ describe "musicXmlFile", ->
             clef: 'F'
           notes: [
             {
+              name:'db4'
+              duration: 1/8
+              splitted: 'u'
+            }
+            {
               name:'r'
               duration: 1
+              dot: true
             }
           ]
         }
@@ -123,24 +129,42 @@ describe "musicXmlFile", ->
             <duration>1</duration>
             <voice>1</voice>
             <type>eighth</type>
-            <dot />
+            <tie type="start"/>
+            <notations>
+              <tied type="start"/>
+            </notations>
           </note>
         </measure>
         <measure number="2">
           <attributes />
           <note>
+            <pitch>
+              <step>D</step>
+              <octave>4</octave>
+              <alter>-1</alter>
+            </pitch>
+            <duration>1</duration>
+            <voice>1</voice>
+            <type>eighth</type>
+            <tie type="stop"/>
+            <notations>
+              <tied type="stop"/>
+            </notations>
+          </note>
+          <note>
             <rest />
             <duration>1</duration>
             <voice>1</voice>
             <type>whole</type>
+            <dot />
           </note>
         </measure>
       </part>
     </score-partwise>
     '
 
-    #borrar esta linea antes de hacer Commit!!!!
-    new musicXmlFile(scoreExample).save('/home/javier/Escritorio/musicXmlExample.xml')
+    #No borrar esta línea hasta salir a producción (la uso todo el tiempo :P)
+    #new musicXmlFile(scoreExample).save('/home/javiersorella/Desktop/testingMusic.xml')
 
     convertedScore = new musicXmlFile(scoreExample).convertScore()
 

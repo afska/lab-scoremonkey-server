@@ -40,7 +40,7 @@ describe "Scorizer", ->
       {
         signatures: signatures
         notes: [
-          { name: "u", duration: 1/8 }
+          { name: "a5", duration: 1/8 }
           { name: "e8", duration: 1/8 }
           { name: "r", duration: 3/4 }
         ]

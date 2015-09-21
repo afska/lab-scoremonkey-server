@@ -19,12 +19,16 @@ module.exports = (notes, maxDuration, options = {}) =>
       # split
       leftover = groupNewLength - maxDuration
       note.duration -= leftover
-      lastGroup.push note if note.duration > 0
+      if note.duration > 0
+        if options.markAsSplitted
+          note.splitted = 't'
+        lastGroup.push note
 
       groups.push [
         _.assign _.clone(note), duration: leftover,
-          if options.markAsSplitted and note.duration > 0
-            splitted: true
+          if options.markAsSplitted
+            if note.duration > 0
+              splitted: 'u'
       ]
 
     groups

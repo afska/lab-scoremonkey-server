@@ -74,34 +74,67 @@ class MusicXmlFile
   Maps the notes into a MusicXML object.
   ###
   _mapNotes: (notes) =>
-    for note in notes
-      if note.name != "r"
-        mappedNote = {
+    #for note in notes
+    notes.map (note, i) =>
+      mappedNote =
+        duration : 1
+        voice : 1
+        type : @_noteType(note.duration).type
+
+      if note.name is "r"
+         _.assign mappedNote , {rest : null}
+      else
+        _.assign mappedNote , {
           pitch :
             step : note.name.charAt(0).toUpperCase()
             octave : note.name.slice(-1)
+          }
 
-          duration : 1
-          voice : 1
-          type : @_noteType(note.duration).type
-        }
 
-        if note.name.charAt(1) == "#"
-          _.assign mappedNote.pitch , {alter : "1"}
-        if note.name.charAt(1) == "b"
-          _.assign mappedNote.pitch , {alter : "-1"}
-        if note.dot == true
-          _.assign mappedNote , {dot : null}
+      if note.name.charAt(1) is "#"
+        _.assign mappedNote.pitch , {alter : "1"}
+      if note.name.charAt(1) is "b"
+        _.assign mappedNote.pitch , {alter : "-1"}
+      if note.dot is true
+        _.assign mappedNote , {dot: null}
+      if note.splitted is "t"
+        _.assign mappedNote ,
+          {
+            tie :
+              '@' :
+                type : 'start'
+              ,
+              '#' :
+                null
+            notations: {
+              tied :
+                '@' :
+                  type : 'start'
+                ,
+                '#' :
+                  null
+            }
+          }
+      if note.splitted is "u"
+        _.assign mappedNote ,
+          {
+            tie :
+              '@' :
+                type : 'stop'
+              ,
+              '#' :
+                null
+            notations: {
+              tied :
+                '@' :
+                  type : 'stop'
+                ,
+                '#' :
+                  null
+            }
+          }
 
-      else
-        mappedNote = {
-          rest : null
-          duration : 1
-          voice : 1
-          type : @_noteType(note.duration).type
-        }
-
-      note = mappedNote
+      mappedNote
 
 
   ###
