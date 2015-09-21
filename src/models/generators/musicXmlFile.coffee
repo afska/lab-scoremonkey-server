@@ -123,11 +123,11 @@ class MusicXmlFile
 
     (noteTypes.find { duration })
 
-  ###"Am",
+  ###
   Gets the amount of fifths inside the key signature.
     A negative amount represents flats; a positive amount represents sharps.
   ###
-  _getFifthsAmount:  (key) =>
+  _getFifthsAmount: (key) =>
     sharpMajor = ["C", "G", "D", "A", "E", "B", "F#", "C#"]
     flatMajor = ["C", "F", "Bb", "Eb", "Ab", "Db", "Gb", "Cb"]
     sharpMinor = ["Am", "Em", "Bm", "F#m", "C#m", "G#m", "D#m", "A#m"]
@@ -146,7 +146,7 @@ class MusicXmlFile
   ###
   Gets the mode of the melody.
   ###
-  _getMode:  (key) =>
+  _getMode: (key) =>
     if _.endsWith(key, 'm') then 'minor' else 'major'
 
   ###
