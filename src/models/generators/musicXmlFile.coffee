@@ -60,8 +60,8 @@ class MusicXmlFile
     {
       'divisions' : 1,
       'key':
-        'fifths': 0,
-        'mode': 'major'
+        'fifths': @_getFifthsAmount(bar.signatures.key), #(-7,7)
+        'mode': @_getMode(bar.signatures.key) # {'minor', 'major'}
       'time':
         'beats' : bar.signatures.time.major
         'beat-type' : bar.signatures.time.minor
@@ -107,11 +107,11 @@ class MusicXmlFile
   ###
   Receives a duration and returns a note with type information with the format:
 
-  note:{
-    type: String
-    duration: Float
-    dot: Boolean
-  }
+    note:{
+      type: String
+      duration: Float
+      dot: Boolean
+    }
   ###
   _noteType: (duration) =>
     noteTypes = ["whole", "half", "quarter", "eighth", "sixteenth"]
@@ -123,8 +123,34 @@ class MusicXmlFile
 
     (noteTypes.find { duration })
 
+  ###"Am",
+  Gets the amount of fifths inside the key signature.
+    A negative amount represents flats; a positive amount represents sharps.
   ###
-  Get the pentagram line for a clef.
+  _getFifthsAmount:  (key) =>
+    sharpMajor = ["C", "G", "D", "A", "E", "B", "F#", "C#"]
+    flatMajor = ["C", "F", "Bb", "Eb", "Ab", "Db", "Gb", "Cb"]
+    sharpMinor = ["Am", "Em", "Bm", "F#m", "C#m", "G#m", "D#m", "A#m"]
+    flatMinor = ["Am", "Dm", "Gm", "Cm", "Fm", "Bbm", "Ebm", "Abm"]
+
+    mappedKey = [sharpMajor, flatMajor, sharpMinor, flatMinor]
+      .map (array, j) =>
+        factor = if j % 2 > 0 then -1 else 1
+        array.map (keyName, i) =>
+          { key: "#{keyName}", fifthsAmount: "#{i*factor}" }
+      .flatten()
+      .find { key }
+
+    mappedKey.fifthsAmount
+
+  ###
+  Gets the mode of the melody.
+  ###
+  _getMode:  (key) =>
+    if _.endsWith(key, 'm') then 'minor' else 'major'
+
+  ###
+  Gets the pentagram line for a clef.
   ###
   _getClefLine: (clefName) =>
     associatedLine = {'G': 2, 'F': 4, 'C': 3}

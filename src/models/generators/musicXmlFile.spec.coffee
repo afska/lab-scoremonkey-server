@@ -74,8 +74,8 @@ describe "musicXmlFile", ->
           <attributes>
             <divisions>1</divisions>
             <key>
-              <fifths>0</fifths>
-              <mode>major</mode>
+              <fifths>-7</fifths>
+              <mode>minor</mode>
             </key>
             <time>
               <beats>4</beats>
