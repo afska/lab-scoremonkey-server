@@ -74,5 +74,5 @@ heroku git:remote --app scoremonkey
 git push heroku master
 ```
 
-#### custom buildpack:
+##### custom buildpack:
 https://github.com/a2ikm/heroku-buildpack-mplayer
