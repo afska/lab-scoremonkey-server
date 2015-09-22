@@ -75,4 +75,4 @@ git push heroku master
 ```
 
 #### custom buildpack:
-https://github.com/shunjikonishi/heroku-buildpack-ffmpeg
+https://github.com/a2ikm/heroku-buildpack-mplayer
