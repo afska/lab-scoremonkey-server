@@ -1,7 +1,9 @@
+musicalFigureDictionary = include("models/converters/musicalFigureDictionary")
 promisify = require("bluebird").promisifyAll
 fs = promisify require("fs")
-o2x = require('object-to-xml');
+o2x = require('object-to-xml')
 _ = require("protolodash")
+
 
 ###
 A MusicXml File created from a *score*.
@@ -74,12 +76,11 @@ class MusicXmlFile
   Maps the notes into a MusicXML object.
   ###
   _mapNotes: (notes) =>
-    #for note in notes
     notes.map (note, i) =>
       mappedNote =
         duration : 1
         voice : 1
-        type : @_noteType(note.duration).type
+        type : @_noteType(note.duration).name
 
       if note.name is "r"
          _.assign mappedNote , {rest : null}
@@ -97,7 +98,7 @@ class MusicXmlFile
         _.assign mappedNote.pitch , {alter : "-1"}
       if note.dot is true
         _.assign mappedNote , {dot: null}
-      if note.splitted is "t"
+      if note.tie is "t"
         _.assign mappedNote ,
           {
             tie :
@@ -115,7 +116,7 @@ class MusicXmlFile
                   null
             }
           }
-      if note.splitted is "u"
+      if note.tie is "u"
         _.assign mappedNote ,
           {
             tie :
@@ -147,14 +148,7 @@ class MusicXmlFile
     }
   ###
   _noteType: (duration) =>
-    noteTypes = ["whole", "half", "quarter", "eighth", "sixteenth"]
-    .map (typeName, i) => [
-      { type: typeName, duration: 1 / Math.pow(2, i), dot: false }
-      { type: typeName, duration: 1 / Math.pow(2, i) + (1 / Math.pow(2, i + 1)) / 2, dot: true }
-    ]
-    .flatten()
-
-    (noteTypes.find { duration })
+    musicalFigureDictionary.findByDuration duration
 
   ###
   Gets the amount of fifths inside the key signature.

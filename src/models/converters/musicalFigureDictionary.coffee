@@ -8,11 +8,11 @@ module.exports = new # singleton
 class MusicalFigureDictionary
   constructor: ->
     @noteTypes = ["whole", "half", "quarter", "eighth", "sixteenth"]
-      .map (name, i) =>
+      .map (typeName, i) =>
         length = 1 / Math.pow(2, i)
         [
-          { name: name, duration: length, dot: false }
-          { name: name, duration: length + length / 2, dot: true }
+          { name: typeName, duration: length, dot: false }
+          { name: typeName, duration: length + length / 2, dot: true }
         ]
       .flatten()
 

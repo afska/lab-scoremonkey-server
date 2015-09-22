@@ -29,7 +29,7 @@ class Scorizer
       .map @_buildNotes
       .flatten()
 
-    groupNotes(validNotes, length, markAsSplitted: true).map (group) =>
+    groupNotes(validNotes, length, markAsTied: true).map (group) =>
       new Bar signatures, group.map (note) =>
         new Note(
           note.name,

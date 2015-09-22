@@ -20,14 +20,14 @@ module.exports = (notes, maxDuration, options = {}) =>
       leftover = groupNewLength - maxDuration
       note.duration -= leftover
       if note.duration > 0
-        if options.markAsSplitted
-          note.splitted = 't'
+        if options.markAsTied
+          note.tie = 't'
         lastGroup.push note
 
       groups.push [
         _.assign _.clone(note), duration: leftover,
-          if options.markAsSplitted and note.duration > 0
-            splitted: 'u'
+          if options.markAsTied and note.duration > 0
+            tie: 'u'
       ]
 
     groups

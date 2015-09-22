@@ -41,7 +41,7 @@ describe "musicXmlFile", ->
             {
               name:'db4'
               duration: 1/8
-              splitted: 't'
+              tie: 't'
             }
           ]
         }
@@ -56,7 +56,7 @@ describe "musicXmlFile", ->
             {
               name:'db4'
               duration: 1/8
-              splitted: 'u'
+              tie: 'u'
             }
             {
               name:'r'
