@@ -21,6 +21,7 @@ Slack: https://losborbotones.slack.com
 # install nodejs
 # install npm (node package manager)
 # install mongodb-server
+# install ffmpeg
 
 npm install -g grunt-cli
 npm install
@@ -72,3 +73,6 @@ https://toolbelt.heroku.com/
 heroku git:remote --app scoremonkey
 git push heroku master
 ```
+
+#### custom buildpack:
+https://github.com/shunjikonishi/heroku-buildpack-ffmpeg
