@@ -20,6 +20,7 @@ Slack: https://losborbotones.slack.com
 ```bash
 # install nodejs
 # install npm (node package manager)
+# install mongodb-server
 
 npm install -g grunt-cli
 npm install
@@ -44,9 +45,9 @@ grunt test
 #### REPL shell:
 ```bash
 node
-.load globals.js
+require("./globals.js")
 #your debugging code:
-Monkey = include("domains/monkey")
+Monkey = include("domain/monkey")
 # ...
 ```
 
@@ -62,6 +63,9 @@ https://toolbelt.heroku.com/
 
 ##### remote shell:
 ```heroku run /bin/bash --app scoremonkey```
+
+##### remote logs:
+```heroku logs --tail --app scoremonkey```
 
 ##### add git remote and deploy
 ```bash
