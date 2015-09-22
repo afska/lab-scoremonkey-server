@@ -21,7 +21,7 @@ Slack: https://losborbotones.slack.com
 # install nodejs
 # install npm (node package manager)
 # install mongodb-server
-# install ffmpeg
+# install mplayer
 
 npm install -g grunt-cli
 npm install

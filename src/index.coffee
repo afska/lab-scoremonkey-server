@@ -23,6 +23,7 @@ module.exports = =>
   # ensure the blobs directories exist...
   mkdirp = require("mkdirp")
   mkdirp "#{__rootpath}/blobs/uploads"
+  mkdirp "#{__rootpath}/blobs/encoded"
 
   # connect to mongodb...
   dbUri = process.env.MONGO_URI || "mongodb://localhost/scoremonkey"

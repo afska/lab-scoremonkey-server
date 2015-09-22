@@ -1,6 +1,8 @@
+Mplayer = include("lib/mPlayer")
 AubioPitch = include("lib/aubioPitch")
 Melody = include("models/melody")
 promisify = require("bluebird").promisifyAll
+uuid = require("uuid")
 fs = promisify require("fs")
 _ = require("protolodash")
 
@@ -17,14 +19,17 @@ module.exports =
 
 class MelodyDetector
   constructor: (@settings) ->
-    @recognizer = new AubioPitch(@settings.filePath, @settings.options)
+    @tmpFile = "#{__rootpath}/blobs/encoded/#{uuid.v4()}.wav"
+
+    @decoder = new Mplayer(@settings.filePath)
+    @recognizer = new AubioPitch(@tmpFile, @settings.options)
 
   ###
   Generates the melody using the output of the recognizer
   and a dynamic list of chained postprocessors (_.flow).
   ###
   getMelody: =>
-    @recognizer.execute().then (samples) =>
+    @_recognize().then (samples) =>
       path = "#{__dirname}/postprocessors"
 
       fs.readdirAsync(path).then (dir) =>
@@ -35,3 +40,13 @@ class MelodyDetector
         notes = (_.flow.apply @, postProcessors)(samples)
 
         new Melody @settings.tempo, notes
+
+  ###
+  Uses mplayer and aubiopitch to recognize the frequencies.
+  ###
+  _recognize: =>
+    @decoder
+      .convertToWav @tmpFile
+      .then @recognizer.execute
+      .catch =>
+        fs.unlink @tmpFile
