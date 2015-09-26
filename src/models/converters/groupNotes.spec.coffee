@@ -26,14 +26,14 @@ describe "groupNotes", ->
     ], 5, markAsTied: true).should.eql [
       [
         { duration: 2 }
-        { duration: 3, tie: 't'}
+        { duration: 3}
       ]
       [
-        { duration: 1, tie: 'u' }
-        { duration: 4, tie: 't'}
+        { duration: 1}
+        { duration: 4}
       ]
       [
-        { duration: 1, tie: 'u' }
+        { duration: 1}
         { duration: 4 }
       ]
       [

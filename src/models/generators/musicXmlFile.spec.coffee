@@ -41,7 +41,7 @@ describe "musicXmlFile", ->
             {
               name:'db4'
               duration: 1/8
-              tie: 't'
+              tie: {start: true}
             }
           ]
         }
@@ -56,7 +56,15 @@ describe "musicXmlFile", ->
             {
               name:'db4'
               duration: 1/8
-              tie: 'u'
+              tie: {
+                stop: true
+                start: true
+              }
+            }
+            {
+              name:'db4'
+              duration: 1/8
+              tie: {stop: true}
             }
             {
               name:'r'
@@ -129,9 +137,9 @@ describe "musicXmlFile", ->
             <duration>1</duration>
             <voice>1</voice>
             <type>eighth</type>
-            <tie type="start"/>
+            <tie type="start" />
             <notations>
-              <tied type="start"/>
+              <tied type="start" />
             </notations>
           </note>
         </measure>
@@ -146,9 +154,27 @@ describe "musicXmlFile", ->
             <duration>1</duration>
             <voice>1</voice>
             <type>eighth</type>
-            <tie type="stop"/>
+            <tie type="stop" />
+            <tie type="start" />
             <notations>
-              <tied type="stop"/>
+              <tied type="stop" />
+            </notations>
+            <notations>
+              <tied type="start" />
+            </notations>
+          </note>
+          <note>
+            <pitch>
+              <step>D</step>
+              <octave>4</octave>
+              <alter>-1</alter>
+            </pitch>
+            <duration>1</duration>
+            <voice>1</voice>
+            <type>eighth</type>
+            <tie type="stop" />
+            <notations>
+              <tied type="stop" />
             </notations>
           </note>
           <note>
@@ -164,7 +190,7 @@ describe "musicXmlFile", ->
     '
 
     #No borrar esta línea hasta salir a producción (la uso todo el tiempo :P)
-    #new musicXmlFile(scoreExample).save('/home/javiersorella/Desktop/testingMusic.xml')
+    new musicXmlFile(scoreExample).save('/home/javier/Escritorio/testingMusic.xml')
 
     convertedScore = new musicXmlFile(scoreExample).convertScore()
 

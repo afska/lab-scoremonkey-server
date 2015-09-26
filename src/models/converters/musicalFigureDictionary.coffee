@@ -7,7 +7,7 @@ module.exports = new # singleton
 
 class MusicalFigureDictionary
   constructor: ->
-    @noteTypes = ["whole", "half", "quarter", "eighth", "sixteenth"]
+    @noteTypes = ["whole", "half", "quarter", "eighth", "16th"]
       .map (typeName, i) =>
         length = 1 / Math.pow(2, i)
         [
@@ -21,6 +21,7 @@ class MusicalFigureDictionary
   ###
   findByDuration: (duration) =>
     @noteTypes.find { duration }
+
 
   ###
   Gets the closest valid duration of a *duration*.

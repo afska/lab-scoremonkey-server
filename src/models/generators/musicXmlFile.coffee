@@ -35,7 +35,6 @@ class MusicXmlFile
   Maps the bars into XML notation.
   ###
   _mapBars: (score) =>
-
     measureNum = 0
     measures = {}
 
@@ -91,64 +90,78 @@ class MusicXmlFile
             octave : note.name.slice(-1)
           }
 
-
       if note.name.charAt(1) is "#"
         _.assign mappedNote.pitch , {alter : "1"}
       if note.name.charAt(1) is "b"
         _.assign mappedNote.pitch , {alter : "-1"}
       if note.dot is true
         _.assign mappedNote , {dot: null}
-      if note.tie is "t"
-        _.assign mappedNote ,
-          {
-            tie :
-              '@' :
-                type : 'start'
-              ,
-              '#' :
-                null
-            notations: {
-              tied :
-                '@' :
-                  type : 'start'
-                ,
-                '#' :
-                  null
-            }
-          }
-      if note.tie is "u"
-        _.assign mappedNote ,
-          {
-            tie :
-              '@' :
-                type : 'stop'
-              ,
-              '#' :
-                null
-            notations: {
-              tied :
-                '@' :
-                  type : 'stop'
-                ,
-                '#' :
-                  null
-            }
-          }
+      if note.tie
+        mappedNote = @_appendTies(note, mappedNote)
 
       mappedNote
+
+  ###
+  Append ties from a note to another note.
+  First checks for the stop, then for the start
+  (this is the right order... do not alter it!).
+  ###
+  _appendTies: (note, mappedNote) =>
+    _.assign mappedNote , notations: []
+    _.assign mappedNote , tie: []
+
+    if note.tie.stop is true
+      mappedNote.tie.push
+          '@' :
+            type : 'stop'
+          ,
+          '#' :
+            null
+      mappedNote.notations.push
+        '@' :
+          null
+        '#' :
+          tied :
+            '@' :
+              type : 'stop'
+            ,
+            '#' :
+              null
+    if note.tie.start is true
+      mappedNote.tie.push
+          '@' :
+            type : 'start'
+          ,
+          '#' :
+            null
+      mappedNote.notations.push
+        '@' :
+          null
+        '#' :
+          tied :
+            '@' :
+              type : 'start'
+            ,
+            '#' :
+              null
+
+    mappedNote
 
 
   ###
   Receives a duration and returns a note with type information with the format:
 
-    note:{
+    @Input note:{
       type: String
       duration: Float
       dot: Boolean
     }
   ###
   _noteType: (duration) =>
-    musicalFigureDictionary.findByDuration duration
+    if musicalFigureDictionary.findByDuration duration
+      musicalFigureDictionary.findByDuration duration
+    else
+      "32th" #la única forma que tengo de reconocer notas mal parseadas por ahora
 
   ###
   Gets the amount of fifths inside the key signature.
