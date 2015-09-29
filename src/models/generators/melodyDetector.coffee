@@ -48,5 +48,5 @@ class MelodyDetector
     @decoder
       .convertToWav @tmpFile
       .then @recognizer.execute
-      .catch =>
+      .finally =>
         fs.unlink @tmpFile
