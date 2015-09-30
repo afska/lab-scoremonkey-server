@@ -3,6 +3,7 @@ expect  = require('chai').expect;
 MusicXmlFile = require("./musicXmlFile")
 chaiXml = require('chai-xml');
 Melody = include("models/melody")
+Note = include("models/note")
 Scorizer = require("./scorizer")
 
 chai.use(chaiXml);
@@ -27,23 +28,34 @@ describe "MusicXmlFile", ->
             key: 'Abm'
             clef: 'F'
           notes: [
-            {
-              name:'c4'
-              duration: 1/4
-            }
-            {
-              name:'c#4'
-              duration: 1/4
-            }
-            {
-              name:'d4'
-              duration: 1/4
-            }
-            {
-              name:'db4'
-              duration: 1/8
-              tie: {start: true}
-            }
+            new Note(
+              {
+                name:'c4'
+                duration: 1/4
+              }
+            ),
+            new Note(
+              {
+                name:'c#4'
+                duration: 1/4
+                figure: {name: 'quarter'}
+              }
+            ),
+            new Note(
+              {
+                name:'d4'
+                duration: 1/4
+                figure: {name: 'quarter'}
+              }
+            ),
+            new Note(
+              {
+                name:'db4'
+                duration: 1/8
+                tie: {start: true}
+                figure: {name: 'eighth'}
+              }
+            )
           ]
         }
         {
@@ -54,24 +66,30 @@ describe "MusicXmlFile", ->
             key: 'Abm'
             clef: 'F'
           notes: [
-            {
-              name:'db4'
-              duration: 1/8
-              tie: {
-                stop: true
-                start: true
+            new Note(
+              {
+                name:'db4'
+                duration: 1/8
+                tie: {
+                  stop: true
+                  start: true
+                }
               }
-            }
-            {
-              name:'db4'
-              duration: 1/8
-              tie: {stop: true}
-            }
-            {
-              name:'r'
-              duration: 1
-              dot: true
-            }
+            ),
+            new Note(
+              {
+                name:'db4'
+                duration: 1/8
+                tie: {stop: true}
+              }
+            ),
+            new Note(
+              {
+                name:'r'
+                duration: 1
+                dot: true
+              }
+            ),
           ]
         }
       ]

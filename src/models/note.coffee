@@ -1,4 +1,5 @@
 _ = require("protolodash")
+musicalFigureDictionary = include("models/converters/musicalFigureDictionary")
 
 ###
 A note.
@@ -19,3 +20,10 @@ class Note
       @tie = note.tie
     if note.dot
       @dot = true
+
+  ###
+  Returns the figure data of the note, according with his duration
+  ###
+  figure: =>
+    musicalFigureDictionary.findByDuration @duration
+

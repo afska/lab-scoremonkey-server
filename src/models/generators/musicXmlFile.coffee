@@ -1,8 +1,8 @@
-musicalFigureDictionary = include("models/converters/musicalFigureDictionary")
 promisify = require("bluebird").promisifyAll
 fs = promisify require("fs")
 o2x = require('object-to-xml')
 _ = require("protolodash")
+Note = include("models/note")
 
 
 ###
@@ -76,10 +76,11 @@ class MusicXmlFile
   ###
   _mapNotes: (notes) =>
     notes.map (note, i) =>
+      console.log note
       mappedNote =
         duration : 1
         voice : 1
-        type : @_noteType(note.duration).name
+        type : note.figure().name
 
       if note.name is "r"
          _.assign mappedNote , {rest : null}
@@ -146,22 +147,6 @@ class MusicXmlFile
               null
 
     mappedNote
-
-
-  ###
-  Receives a duration and returns a note with type information with the format:
-
-    @Input note:{
-      type: String
-      duration: Float
-      dot: Boolean
-    }
-  ###
-  _noteType: (duration) =>
-    if musicalFigureDictionary.findByDuration duration
-      musicalFigureDictionary.findByDuration duration
-    else
-      "32th" #la única forma que tengo de reconocer notas mal parseadas por ahora
 
   ###
   Gets the amount of fifths inside the key signature.

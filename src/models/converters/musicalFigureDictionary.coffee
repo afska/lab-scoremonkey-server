@@ -8,11 +8,11 @@ module.exports = new # singleton
 class MusicalFigureDictionary
   constructor: ->
     @noteTypes = ["whole", "half", "quarter", "eighth", "16th"]
-      .map (typeName, i) =>
+      .map (figureName, i) =>
         length = 1 / Math.pow(2, i)
         [
-          { name: typeName, duration: length, dot: false }
-          { name: typeName, duration: length + length / 2, dot: true }
+          { name: figureName, duration: length, dot: false }
+          { name: figureName, duration: length + length / 2, dot: true }
         ]
       .flatten()
 
@@ -21,6 +21,7 @@ class MusicalFigureDictionary
   ###
   findByDuration: (duration) =>
     @noteTypes.find { duration }
+    # { name: "32th" } #la única forma que tengo de reconocer notas mal parseadas por ahora
 
 
   ###
