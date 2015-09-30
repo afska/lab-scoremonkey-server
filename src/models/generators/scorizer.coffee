@@ -43,13 +43,6 @@ class Scorizer
 
     while leftover > 0 && closest != 0
 
-      if not _.isEmpty notes
-        lastNote = notes.last()
-        _.assign lastNote , tie: {}
-        lastNote.tie.start = true
-        _.assign note , tie: {}
-        note.tie.stop = true
-
       closest = musicalFigureDictionary.findClosestDuration leftover
 
       if closest > 0
@@ -58,6 +51,14 @@ class Scorizer
         modifiedNote = _.clone(note)
         modifiedNote.duration = closest
         note.duration = closest
+
+        if not _.isEmpty notes
+          lastNote = notes.last()
+          _.assign lastNote , tie: {}
+          lastNote.tie.start = true
+
+          _.assign modifiedNote , tie: {}
+          modifiedNote.tie.stop = true
 
         notes.push modifiedNote
 

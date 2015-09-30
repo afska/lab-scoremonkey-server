@@ -21,7 +21,6 @@ class MusicalFigureDictionary
   ###
   findByDuration: (duration) =>
     @noteTypes.find { duration }
-    # { name: "32th" } #la única forma que tengo de reconocer notas mal parseadas por ahora
 
 
   ###

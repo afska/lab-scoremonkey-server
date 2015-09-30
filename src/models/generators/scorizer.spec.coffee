@@ -34,13 +34,13 @@ describe "Scorizer", ->
           notes: [
             { name: "c4", duration: 1/4 }
             { name: "c#4", duration: 1/2 }
-            { name: "a5", duration: 1/4 }
+            { name: "a5", duration: 1/4, tie: {start: true} }
           ]
         }
         {
           signatures: signatures
           notes: [
-            { name: "a5", duration: 1/8 }
+            { name: "a5", duration: 1/8, tie: {stop: true} }
             { name: "e8", duration: 1/8 }
             { name: "r", duration: 3/4 }
           ]

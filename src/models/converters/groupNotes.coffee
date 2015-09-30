@@ -25,10 +25,16 @@ module.exports = (notes, maxDuration, options = {}) =>
       leftover = groupNewLength - maxDuration
       note.duration -= leftover
 
-      lastGroup.push note if note.duration > 0
+      if note.duration > 0
+        if options.markAsTied
+          _.assign note , { tie: {start: true} }
+
+        lastGroup.push note
 
       groups.push [
-        _.assign _.clone(note), duration: leftover
+        _.assign _.clone(note), duration: leftover,
+        if options.markAsTied and note.duration > 0
+          tie: {stop: true}
       ]
       # <<<
 

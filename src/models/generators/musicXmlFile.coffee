@@ -76,7 +76,7 @@ class MusicXmlFile
   ###
   _mapNotes: (notes) =>
     notes.map (note, i) =>
-      console.log note
+
       mappedNote =
         duration : 1
         voice : 1
