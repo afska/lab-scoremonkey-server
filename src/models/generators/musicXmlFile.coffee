@@ -95,7 +95,7 @@ class MusicXmlFile
         _.assign mappedNote.pitch , {alter : "1"}
       if note.name.charAt(1) is "b"
         _.assign mappedNote.pitch , {alter : "-1"}
-      if note.dot is true
+      if note.figure().dot is true
         _.assign mappedNote , {dot: null}
       if note.tie
         mappedNote = @_appendTies(note, mappedNote)

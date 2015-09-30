@@ -38,14 +38,12 @@ describe "MusicXmlFile", ->
               {
                 name:'c#4'
                 duration: 1/4
-                figure: {name: 'quarter'}
               }
             ),
             new Note(
               {
                 name:'d4'
                 duration: 1/4
-                figure: {name: 'quarter'}
               }
             ),
             new Note(
@@ -53,7 +51,6 @@ describe "MusicXmlFile", ->
                 name:'db4'
                 duration: 1/8
                 tie: {start: true}
-                figure: {name: 'eighth'}
               }
             )
           ]
@@ -86,8 +83,7 @@ describe "MusicXmlFile", ->
             new Note(
               {
                 name:'r'
-                duration: 1
-                dot: true
+                duration: 1.5
               }
             ),
           ]

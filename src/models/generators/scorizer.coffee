@@ -36,7 +36,7 @@ class Scorizer
         )
 
   ###
-  Splits the notes into many "valid" notes, adding "ties" and "dots" if it's necessary.
+  Splits the notes into many "valid" notes, adding "ties" if it's necessary.
   ###
   _splitNotes: (note) =>
     notes = [] ; leftover = note.duration ; closest = 1
@@ -58,9 +58,6 @@ class Scorizer
         modifiedNote = _.clone(note)
         modifiedNote.duration = closest
         note.duration = closest
-
-        if noteType.dot is true
-          _.assign modifiedNote , dot: true
 
         notes.push modifiedNote
 
