@@ -22,14 +22,19 @@ class MusicalFigureDictionary
   findByDuration: (duration) =>
     @noteTypes.find { duration }
 
-
   ###
   Gets the closest valid duration of a *duration*.
   ###
   findClosestDuration: (duration) =>
     compare = (previous, current) =>
-      isCloser = Math.abs(current - duration) < Math.abs(previous - duration)
-      itFits = duration >= current
-      if isCloser and itFits then current else previous
+      isCloserThanPrevious = Math.abs(current - duration) < Math.abs(previous - duration)
 
-    (_.map @noteTypes, "duration").reduce compare, 0
+      itFits = duration >= current
+      if isCloserThanPrevious and itFits then current else previous
+
+    val = (_.map @noteTypes, "duration").reduce compare, 0
+
+    if val is 0
+      console.log "PAREN TODO, ESTÁ DEVOLVIENDO CERO, CON LA DURATION #{duration}"
+
+    val

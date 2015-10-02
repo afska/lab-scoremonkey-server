@@ -31,37 +31,29 @@ class Scorizer
 
     groupNotes(validNotes, length, markAsTied: true).map (group) =>
       new Bar signatures, group.map (note) =>
-        new Note(
-          note
-        )
+        new Note(note)
 
   ###
   Splits the notes into many "valid" notes, adding "ties" if it's necessary.
   ###
   _splitNotes: (note) =>
-    notes = [] ; leftover = note.duration ; closest = 1
+    notes = [] ; leftover = note.duration
 
-    while leftover > 0 && closest != 0
-
+    while leftover > 0
       closest = musicalFigureDictionary.findClosestDuration leftover
-
-      if closest > 0
-        noteType = musicalFigureDictionary.findByDuration closest
-
-        modifiedNote = _.clone(note)
-        modifiedNote.duration = closest
-        note.duration = closest
-
-        if not _.isEmpty notes
-          lastNote = notes.last()
-          _.assign lastNote , tie: {}
-          lastNote.tie.start = true
-
-          _.assign modifiedNote , tie: {}
-          modifiedNote.tie.stop = true
-
-        notes.push modifiedNote
-
       leftover -= closest
+
+      isTheFirst = _.isEmpty notes
+      isTheLast = leftover is 0
+
+      notes.push
+        name: note.name
+        duration: closest
+        tie:
+          if isTheFirst and isTheLast
+            start: false, stop: false
+          else
+            start: not isTheLast
+            stop: not isTheFirst
 
     notes
