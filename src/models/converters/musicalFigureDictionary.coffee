@@ -32,9 +32,4 @@ class MusicalFigureDictionary
       itFits = duration >= current
       if isCloserThanPrevious and itFits then current else previous
 
-    val = (_.map @noteTypes, "duration").reduce compare, 0
-
-    if val is 0
-      console.log "PAREN TODO, ESTÁ DEVOLVIENDO CERO, CON LA DURATION #{duration}"
-
-    val
+    (_.map @noteTypes, "duration").reduce compare, 0
