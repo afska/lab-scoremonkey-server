@@ -26,27 +26,42 @@ class Scorizer
     length = signatures.time.major / signatures.time.minor
 
     validNotes = @melody.notesWithBeats()
-      .map @_buildNotes
+      .map @_splitNotes
       .flatten()
 
-    groupNotes(validNotes, length, markAsSplitted: true).map (group) =>
+    groupNotes(validNotes, length, markAsTied: true).map (group) =>
       new Bar signatures, group.map (note) =>
         new Note(
-          if note.splitted then "u" else note.name,
-          note.duration
+          note
         )
 
   ###
-  Splits the notes into many "valid" notes, adding "unions" if it's necessary.
+  Splits the notes into many "valid" notes, adding "ties" if it's necessary.
   ###
-  _buildNotes: (note) =>
-    notes = [] ; leftover = note.duration
+  _splitNotes: (note) =>
+    notes = [] ; leftover = note.duration ; closest = 1
 
-    while leftover > 0
-      finalName = if _.isEmpty notes then note.name else "u"
+    while leftover > 0 && closest != 0
 
       closest = musicalFigureDictionary.findClosestDuration leftover
-      notes.push name: finalName, duration: closest
+
+      if closest > 0
+        noteType = musicalFigureDictionary.findByDuration closest
+
+        modifiedNote = _.clone(note)
+        modifiedNote.duration = closest
+        note.duration = closest
+
+        if not _.isEmpty notes
+          lastNote = notes.last()
+          _.assign lastNote , tie: {}
+          lastNote.tie.start = true
+
+          _.assign modifiedNote , tie: {}
+          modifiedNote.tie.stop = true
+
+        notes.push modifiedNote
+
       leftover -= closest
 
     notes

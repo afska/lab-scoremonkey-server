@@ -1,5 +1,7 @@
 MelodyDetector = include("models/generators/melodyDetector")
 MidiFile = include("models/generators/midiFile")
+MusicXmlFile = include("models/generators/musicXmlFile")
+Scorizer = include("models/generators/scorizer")
 GridFs = include("lib/gridFs")
 fs = require("fs")
 uuid = require("uuid")
@@ -21,13 +23,16 @@ class MelodyController
     settings =
       filePath: req.files.audio.path
       tempo: req.body.tempo
-      bar: { major: req.body.major, minor: req.body.minor }
-      clef: req.body.clef
+      signatures:
+        time: { major: req.body.major, minor: req.body.minor }
+        clef: req.body.clef
+        key: req.body.key
+
 
     new MelodyDetector(settings)
       .getMelody()
       .then (melody) =>
-        @_generateMidiAndMusicXml(melody).then (links) =>
+        @_generateMidiAndMusicXml(melody, settings).then (links) =>
           res.json links
       .finally =>
         @_deleteFiles req
@@ -36,13 +41,16 @@ class MelodyController
   Generates and stores the MIDI and the MusicXML file.
   It returns a promise with links.
   ###
-  _generateMidiAndMusicXml: (melody) =>
+  _generateMidiAndMusicXml: (melody, settings) =>
     id = uuid.v4()
     midi = new MidiFile(melody).bytes()
+    score = new Scorizer(melody).build(settings)
+    musicxml = new MusicXmlFile(score).convertScore()
     new GridFs().write("#{id}.mid", midi).then =>
-      midi: "#{process.env.DOMAIN}/midis/#{id}"
-      score: "#{process.env.DOMAIN}/scores/coming_soon"
-      musicxml: "#{process.env.DOMAIN}/scores/coming_soon/musicxml"
+      new GridFs().write("#{id}.xml", musicxml).then =>
+        midi: "#{process.env.DOMAIN}/midis/#{id}"
+        score: "#{process.env.DOMAIN}/scores/#{id}"
+        musicxml: "#{process.env.DOMAIN}/scores/#{id}/musicxml"
 
   ###
   Parse the numbers and find possible errors in the request.
