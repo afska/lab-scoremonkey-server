@@ -17,15 +17,13 @@ describe "groupNotes", ->
     ]
 
   it "should group the notes by duration and mark them as tied", ->
-    a = groupNotes([
+    groupNotes([
       { duration: 2, tie: { start: false, stop: false } }
       { duration: 4, tie: { start: true, stop: false } }
       { duration: 5, tie: { start: false, stop: true } }
       { duration: 4, tie: { start: false, stop: false } }
       { duration: 3, tie: { start: false, stop: false } }
-    ], 5, markAsTied: true)
-
-    a.should.eql [
+    ], 5, markAsTied: true).should.eql [
       [
         { duration: 2, tie: { start: false, stop: false } }
         { duration: 3, tie: { start: true, stop: false } }
