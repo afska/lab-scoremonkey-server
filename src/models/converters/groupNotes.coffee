@@ -9,6 +9,7 @@ module.exports = (notes, maxDuration, options = {}) =>
   notes = _.clone notes, true
 
   groupNotes = (groups, note) =>
+    isLastNote = notes.last() is note
     lastGroup = groups.last()
     groupNewLength = _.sum(lastGroup, "duration") + note.duration
 
@@ -16,7 +17,7 @@ module.exports = (notes, maxDuration, options = {}) =>
       # add
       lastGroup.push note
 
-      if groupNewLength is maxDuration
+      if groupNewLength is maxDuration and not isLastNote
         groups.push []
     else
       # split

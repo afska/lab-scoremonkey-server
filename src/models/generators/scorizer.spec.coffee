@@ -69,16 +69,16 @@ describe "Scorizer", ->
         {
           signatures: signatures
           notes: [
-            { name: "c4", duration: 1/2 + 1/4 } # half with dot
-            { name: "c#4", duration: 1/4, tie: {start: true} } # quarter
+            { name: "c4", duration: 1/2 + 1/4, tie: { start: false, stop: false } } # half with dot
+            { name: "c#4", duration: 1/4, tie: { start: true, stop: false } } # quarter
           ]
         }
         {
           signatures: signatures
           notes: [
-            { name: "c#4", duration: 1/16, tie: {stop: true}  } # sixteenth
-            { name: "e5", duration: 1/2 + 1/4, tie: {start: true}  } # half with dot
-            { name: "e5", duration: 1/8 + 1/16, tie: {stop: true}  } # eighth with dot
+            { name: "c#4", duration: 1/16, tie: { start: false, stop: true } } # sixteenth
+            { name: "e5", duration: 1/2 + 1/4, tie: { start: true, stop: false } } # half with dot
+            { name: "e5", duration: 1/8 + 1/16, tie: {  start: false, stop: true } } # eighth with dot
           ]
         }
       ]
