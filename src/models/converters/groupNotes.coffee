@@ -3,10 +3,7 @@ _ = require("protolodash")
 ###
 Function that splits an array of *notes* in many arrays,
 where the duration of each array is selected by the user.
-  options = { markAsSplitted: false }
-
-if groupNewLength > maxDuration,
-  then 'groupNewLength' is the remaining duration of a tied group of notes
+  options = { markAsTied: false }
 ###
 module.exports = (notes, maxDuration, options = {}) =>
   notes = _.clone notes, true
@@ -18,25 +15,28 @@ module.exports = (notes, maxDuration, options = {}) =>
     if groupNewLength <= maxDuration
       # add
       lastGroup.push note
+
+      if groupNewLength is maxDuration
+        groups.push []
     else
       # split
-
-      # >>> toda esta lógica está bastannnte inexacta
       leftover = groupNewLength - maxDuration
       note.duration -= leftover
 
-      if note.duration > 0
-        if options.markAsTied
-          _.assign note , { tie: {start: true} }
+      firstPart = note
+      secondPart = _.cloneDeep note
 
-        lastGroup.push note
+      # add first part
+      if options.markAsTied
+        firstPart.tie.start = true
 
-      groups.push [
-        _.assign _.clone(note), duration: leftover,
-        if options.markAsTied and note.duration > 0
-          tie: {stop: true}
-      ]
-      # <<<
+      lastGroup.push firstPart
+
+      # add second part
+      secondPart.duration = leftover
+      if options.markAsTied
+        secondPart.tie.stop = true
+      groups.push [secondPart]
 
     groups
 
