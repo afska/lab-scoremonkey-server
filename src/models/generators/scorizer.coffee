@@ -26,7 +26,7 @@ class Scorizer
     length = signatures.time.major / signatures.time.minor
 
     validNotes = @melody.notesWithBeats()
-      .map @_splitNotes
+      .map @_buildNote
       .flatten()
 
     groupNotes(validNotes, length, markAsTied: true).map (group) =>
@@ -36,7 +36,7 @@ class Scorizer
   ###
   Splits the notes into many "valid" notes, adding "ties" if it's necessary.
   ###
-  _splitNotes: (note) =>
+  _buildNote: (note) =>
     notes = [] ; leftover = note.duration
 
     while leftover > 0
