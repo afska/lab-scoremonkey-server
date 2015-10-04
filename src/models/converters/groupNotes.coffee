@@ -1,9 +1,10 @@
+noteSplitter = include("models/generators/noteSplitter")
 _ = require("protolodash")
 
 ###
 Function that splits an array of *notes* in many arrays,
 where the duration of each array is selected by the user.
-  options = { markAsTied: false }
+  options = { createTies: false }
 ###
 module.exports = (notes, maxDuration, options = {}) =>
   notes = _.clone notes, true
@@ -15,30 +16,48 @@ module.exports = (notes, maxDuration, options = {}) =>
 
     if groupNewLength <= maxDuration
       # add
-      lastGroup.push note
+      makeValidAndPush lastGroup, note
 
       if groupNewLength is maxDuration and not isLastNote
-        groups.push []
+        createGroup groups
     else
       # split
       leftover = groupNewLength - maxDuration
       note.duration -= leftover
 
-      firstPart = note
-      secondPart = _.cloneDeep note
+      firstPart = makeValid note
+      secondPart = makeValid(
+        _.assign _.cloneDeep(note), duration: leftover
+      )
 
       # add first part
-      if options.markAsTied
-        firstPart.tie.start = true
-
-      lastGroup.push firstPart
+      markTie firstPart.last(), "start"
+      pushMany lastGroup, firstPart
 
       # add second part
-      secondPart.duration = leftover
-      if options.markAsTied
-        secondPart.tie.stop = true
-      groups.push [secondPart]
+      markTie secondPart.first(), "stop"
+      pushMany createGroup(groups), secondPart
 
     groups
+
+  markTie = (part, point) ->
+    if options.createTies
+      part.tie[point] = true
+
+  makeValid = (note) ->
+    if options.createTies then noteSplitter note
+    else [note]
+
+  pushMany = (group, notes) ->
+    notes.forEach (note) ->
+      group.push note
+
+  makeValidAndPush = (group, note) ->
+    pushMany group, makeValid(note)
+
+  createGroup = (groups) ->
+    newGroup = []
+    groups.push newGroup
+    newGroup
 
   notes.reduce groupNotes, [[]]
