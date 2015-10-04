@@ -22,7 +22,7 @@ describe "3.detect-notes", ->
     ]).should.eql [
       { name: "e2", duration: 250, canBeMerged: true }
       { name: "c5", duration: 250, canBeMerged: true }
-      { name: "g1", duration: 60, canBeMerged: true }
+      { name: "g1", duration: 250, canBeMerged: true }
     ]
 
   it "marks as unmergeables the samples with rests", ->
