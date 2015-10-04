@@ -45,15 +45,13 @@ class Scorizer
 
       isTheFirst = _.isEmpty notes
       isTheLast = leftover is 0
+      isTheUnique = isTheFirst and isTheLast
 
       notes.push
         name: note.name
         duration: closest
         tie:
-          if isTheFirst and isTheLast
-            start: false, stop: false
-          else
-            start: not isTheLast
-            stop: not isTheFirst
+          start: not isTheLast and not isTheUnique
+          stop: not isTheFirst and not isTheUnique
 
     notes

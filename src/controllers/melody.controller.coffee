@@ -45,12 +45,19 @@ class MelodyController
     id = uuid.v4()
     midi = new MidiFile(melody).bytes()
     score = new Scorizer(melody).build(settings)
-    musicxml = new MusicXmlFile(score).convertScore()
-    new GridFs().write("#{id}.mid", midi).then =>
-      new GridFs().write("#{id}.xml", musicxml).then =>
-        midi: "#{process.env.DOMAIN}/midis/#{id}"
-        score: "#{process.env.DOMAIN}/scores/#{id}"
-        musicxml: "#{process.env.DOMAIN}/scores/#{id}/musicxml"
+    musicxml = null # new MusicXmlFile(score).convertScore()
+
+    console.log JSON.stringify score
+    process.exit 1
+
+    gridFs = new GridFs()
+    Promise.props
+      midi: gridFs.write "#{id}.mid", midi
+      score: gridFs.write "#{id}.xml", musicxml
+    .then =>
+      midi: "#{process.env.DOMAIN}/midis/#{id}"
+      score: "#{process.env.DOMAIN}/scores/#{id}"
+      musicxml: "#{process.env.DOMAIN}/scores/#{id}/musicxml"
 
   ###
   Parse the numbers and find possible errors in the request.
