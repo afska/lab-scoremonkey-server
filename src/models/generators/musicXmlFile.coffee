@@ -32,6 +32,18 @@ class MusicXmlFile
               @_mapBars(score)
 
   ###
+  Converts the Score into a Xml.
+  ###
+  convertScore: =>
+    o2x(@file)
+
+  ###
+  Exports the file into a *path*.
+  ###
+  save: (path) =>
+    fs.writeFileAsync path, @convertScore()
+
+  ###
   Maps the bars into XML notation.
   ###
   _mapBars: (score) =>
@@ -180,17 +192,3 @@ class MusicXmlFile
   _getClefLine: (clefName) =>
     associatedLine = {'G': 2, 'F': 4, 'C': 3}
     associatedLine[clefName]
-
-
-  ###
-  Converts the Score into a Xml.
-  ###
-  convertScore: =>
-    o2x(@file)
-
-
-  ###
-  Exports the file into a *path*.
-  ###
-  save: (path) =>
-    fs.writeFileAsync path, @convertScore()

@@ -8,13 +8,14 @@ _ = require("protolodash")
 
 ###
 A generator of *melodies* using an audio recognizer.
-  @Input  settings =
-            filePath: "/home/user/path/audioFile.wav"
-            tempo: 180
-            signatures:
-              key: "Abm"
-              time: { major: 4, minor: 4 }
-              clef: "G"
+  @Input:
+  settings =
+    filePath: "/home/user/path/audioFile.wav"
+    tempo: 180
+    signatures:
+      key: "Abm"
+      time: { major: 4, minor: 4 }
+      clef: "G"
 ###
 module.exports =
 

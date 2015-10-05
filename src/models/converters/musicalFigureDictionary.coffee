@@ -32,4 +32,12 @@ class MusicalFigureDictionary
       itFits = duration >= current
       if isCloserThanPrevious and itFits then current else previous
 
-    (_.map @noteTypes, "duration").reduce compare, 0
+    closest = (_.map @noteTypes, "duration").reduce compare, 0
+    @_checkClosest closest
+
+  ###
+  Check if *duration* is a valid value
+  ###
+  _checkClosest: (duration) =>
+    throw "The closest duration can't be zero!" if duration is 0
+    duration
