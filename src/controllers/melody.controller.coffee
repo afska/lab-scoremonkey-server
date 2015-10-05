@@ -45,10 +45,7 @@ class MelodyController
     id = uuid.v4()
     midi = new MidiFile(melody).bytes()
     score = new Scorizer(melody).build(settings)
-    musicxml = null # new MusicXmlFile(score).convertScore()
-
-    console.log JSON.stringify score
-    process.exit 1
+    musicxml = new MusicXmlFile(score).convertScore()
 
     gridFs = new GridFs()
     Promise.props
