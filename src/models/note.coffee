@@ -1,4 +1,5 @@
 _ = require("protolodash")
+musicalFigureDictionary = include("models/converters/musicalFigureDictionary")
 
 ###
 A note.
@@ -7,9 +8,20 @@ A note.
   *name* can be:
     - a note
     - a "r" (a silence)
-    - a "u" (an union)
 ###
 module.exports =
 
 class Note
-  constructor: (@name, @duration) ->
+  constructor: (note) ->
+    @name = note.name
+    @duration = note.duration
+
+    if note.tie
+      @tie = note.tie
+
+  ###
+  Returns the figure data of the note, according with his duration
+  ###
+  figure: =>
+    musicalFigureDictionary.findByDuration @duration
+

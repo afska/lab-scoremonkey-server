@@ -7,12 +7,12 @@ module.exports = new # singleton
 
 class MusicalFigureDictionary
   constructor: ->
-    @noteTypes = ["whole", "half", "quarter", "eighth", "sixteenth"]
-      .map (name, i) =>
+    @noteTypes = ["whole", "half", "quarter", "eighth", "16th"]
+      .map (figureName, i) =>
         length = 1 / Math.pow(2, i)
         [
-          { name: name, duration: length, dot: false }
-          { name: name, duration: length + length / 2, dot: true }
+          { name: figureName, duration: length, dot: false }
+          { name: figureName, duration: length + length / 2, dot: true }
         ]
       .flatten()
 
@@ -27,8 +27,9 @@ class MusicalFigureDictionary
   ###
   findClosestDuration: (duration) =>
     compare = (previous, current) =>
-      isCloser = Math.abs(current - duration) < Math.abs(previous - duration)
+      isCloserThanPrevious = Math.abs(current - duration) < Math.abs(previous - duration)
+
       itFits = duration >= current
-      if isCloser and itFits then current else previous
+      if isCloserThanPrevious and itFits then current else previous
 
     (_.map @noteTypes, "duration").reduce compare, 0

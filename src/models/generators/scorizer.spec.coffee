@@ -32,23 +32,23 @@ describe "Scorizer", ->
         {
           signatures: signatures
           notes: [
-            { name: "c4", duration: 1/4 }
-            { name: "c#4", duration: 1/2 }
-            { name: "a5", duration: 1/4 }
+            { name: "c4", duration: 1/4, tie: { start: false, stop: false }  }
+            { name: "c#4", duration: 1/2, tie: { start: false, stop: false }  }
+            { name: "a5", duration: 1/4, tie: { start: true, stop: false } }
           ]
         }
         {
           signatures: signatures
           notes: [
-            { name: "u", duration: 1/8 }
-            { name: "e8", duration: 1/8 }
-            { name: "r", duration: 3/4 }
+            { name: "a5", duration: 1/8, tie: { start: false, stop: true } }
+            { name: "e8", duration: 1/8, tie: { start: false, stop: false } }
+            { name: "r", duration: 3/4, tie: { start: false, stop: false } }
           ]
         }
         {
           signatures: signatures
           notes: [
-            { name: "d4", duration: 1/16 }
+            { name: "d4", duration: 1/16, tie: { start: false, stop: false } }
           ]
         }
       ]
@@ -69,16 +69,16 @@ describe "Scorizer", ->
         {
           signatures: signatures
           notes: [
-            { name: "c4", duration: 1/2 + 1/4 } # half with dot
-            { name: "c#4", duration: 1/4 } # quarter
+            { name: "c4", duration: 1/2 + 1/4, tie: { start: false, stop: false } } # half with dot
+            { name: "c#4", duration: 1/4, tie: { start: true, stop: false } } # quarter
           ]
         }
         {
           signatures: signatures
           notes: [
-            { name: "u", duration: 1/16 } # sixteenth
-            { name: "e5", duration: 1/2 + 1/4 } # half with dot
-            { name: "u", duration: 1/8 + 1/16 } # eighth with dot
+            { name: "c#4", duration: 1/16, tie: { start: false, stop: true } } # sixteenth
+            { name: "e5", duration: 1/2 + 1/4, tie: { start: true, stop: false } } # half with dot
+            { name: "e5", duration: 1/8 + 1/16, tie: {  start: false, stop: true } } # eighth with dot
           ]
         }
       ]

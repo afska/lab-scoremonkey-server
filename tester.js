@@ -2,12 +2,14 @@ require("./globals");
 var MelodyDetector = include("models/generators/melodyDetector");
 var MidiFile = include("models/generators/midiFile");
 
+var options = process.argv[4];
+
 var settings = {
   filePath: process.argv[2],
   tempo: process.argv[3],
   bar: { major: 4, minor: 4 },
   clef: "G",
-  options: process.argv[4]
+  options: options != "" ? options : null
 }
 
 new MelodyDetector(settings)

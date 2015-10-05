@@ -1,5 +1,8 @@
 noteDictionary = include("models/converters/noteDictionary")
+BeatConverter = include("models/converters/beatConverter")
 _ = require("protolodash")
+
+MINIMUM_NOTE_LENGTH = 1/16
 
 ###
 Detects the note for each group and determines if it can be merged.
@@ -7,6 +10,8 @@ Detects the note for each group and determines if it can be merged.
  Output: [{name, duration, canBeMerged}, ...]
 ###
 module.exports = (settings, groups) =>
+  beatConverter = new BeatConverter(settings.tempo)
+
   groups.map (group) =>
     detectedNotes = group.map (sample) =>
       name: noteDictionary.whatIs(sample.frequency).name
@@ -19,6 +24,6 @@ module.exports = (settings, groups) =>
         finalNote = { name, count }
 
     name: finalNote.name
-    duration: _.sum group, "duration"
+    duration: beatConverter.toMs MINIMUM_NOTE_LENGTH
     canBeMerged: finalNote.name is "r" or
       (not detectedNotes.some (note) => note.name is "r")
