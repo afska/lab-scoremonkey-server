@@ -1,17 +1,13 @@
 require("chai").Should()
 Melody = include("models/melody")
 Scorizer = require("./scorizer")
+shouldBeEquivalent = include("utils/shouldBeEquivalent")
 
 describe "Scorizer", ->
   signatures =
     time: { major: 4, minor: 4 }
     key: "Abm"
     clef: "G"
-
-  shouldBeEquivalent = (one, another) =>
-    # (removes the methods in the objects for the comparison)
-    clean = (o) => JSON.parse JSON.stringify o
-    clean(one).should.be.eql clean(another)
 
   it "should convert a melody into a score", ->
     melody = new Melody 60, [

@@ -20,7 +20,7 @@ class Note
       @tie = note.tie
 
   ###
-  Returns the figure data of the note, according with his duration
+  Returns the figure data of the note, according with his duration.
   ###
   figure: =>
     musicalFigureDictionary.findByDuration @duration
