@@ -159,18 +159,13 @@ class MusicXmlFile
     sharpMinor = ["Am", "Em", "Bm", "F#m", "C#m", "G#m", "D#m", "A#m"]
     flatMinor = ["Am", "Dm", "Gm", "Cm", "Fm", "Bbm", "Ebm", "Abm"]
 
-    mappedKey = [sharpMajor, flatMajor, sharpMinor, flatMinor]
+    mappedKey = _([sharpMajor, flatMajor, sharpMinor, flatMinor])
       .map (array, j) =>
         factor = if j % 2 > 0 then -1 else 1
         array.map (keyName, i) =>
           { key: "#{keyName}", fifthsAmount: "#{i*factor}" }
       .flatten()
-
-    console.log "Tratando de ver la cantidad de fifths de #{key}"
-    console.log mappedKey
-    console.log try mappedKey.find { key }
-    console.log try mappedKey.find({ key }).fifthsAmount
-    mappedKey = mappedKey.find { key }
+      .find { key }
 
     mappedKey.fifthsAmount
 
