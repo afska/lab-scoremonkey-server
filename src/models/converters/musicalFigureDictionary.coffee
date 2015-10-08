@@ -7,8 +7,6 @@ module.exports = new # singleton
 
 class MusicalFigureDictionary
   constructor: ->
-    @MIN_NOTE = 1/16
-
     @noteTypes = ["whole", "half", "quarter", "eighth", "16th"]
       .map (figureName, i) =>
         length = 1 / Math.pow(2, i)
@@ -35,4 +33,11 @@ class MusicalFigureDictionary
       if isCloserThanPrevious and itFits then current else previous
 
     closest = (_.map @noteTypes, "duration").reduce compare, 0
-    if closest isnt 0 then closest else 1/16
+    @_checkClosest closest
+
+  ###
+  Check if *duration* is a valid value.
+  ###
+  _checkClosest: (duration) =>
+    throw "The closest duration can't be zero!" if duration is 0
+    duration
