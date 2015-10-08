@@ -4,7 +4,6 @@ o2x = require('object-to-xml')
 _ = require("protolodash")
 Note = include("models/note")
 
-
 ###
 A MusicXml File created from a *score*.
 ###
@@ -47,22 +46,13 @@ class MusicXmlFile
   Maps the bars into XML notation.
   ###
   _mapBars: (score) =>
-    measureNum = 0
-    measures = {}
-
-    measures = for bar in score.bars
-      measureNum += 1
-      {
-        '@' :
-          'number' : measureNum
-        '#' :
-          'attributes' : if (measureNum == 1)
-            @_getAtributes(bar)
-          'note' : [@_mapNotes(bar.notes)]
-      }
-
-    mappedBars = 'measure' : [
-      measures
+    measure: [ score.bars.map (bar, i) =>
+      "@":
+        "number" : i + 1
+      "#" :
+        "attributes" : if i is 0
+          @_getAtributes bar
+        "note" : [ @_mapNotes bar.notes ]
     ]
 
 
@@ -88,7 +78,6 @@ class MusicXmlFile
   ###
   _mapNotes: (notes) =>
     notes.map (note, i) =>
-
       mappedNote =
         duration : 1
         voice : 1
@@ -176,7 +165,12 @@ class MusicXmlFile
         array.map (keyName, i) =>
           { key: "#{keyName}", fifthsAmount: "#{i*factor}" }
       .flatten()
-      .find { key }
+
+    console.log "Tratando de ver la cantidad de fifths de #{key}"
+    console.log mappedKey
+    console.log try mappedKey.find { key }
+    console.log try mappedKey.find({ key }).fifthsAmount
+    mappedKey = mappedKey.find { key }
 
     mappedKey.fifthsAmount
 

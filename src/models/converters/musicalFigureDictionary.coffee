@@ -36,7 +36,7 @@ class MusicalFigureDictionary
     @_checkClosest closest
 
   ###
-  Check if *duration* is a valid value
+  Check if *duration* is a valid value.
   ###
   _checkClosest: (duration) =>
     throw "The closest duration can't be zero!" if duration is 0
