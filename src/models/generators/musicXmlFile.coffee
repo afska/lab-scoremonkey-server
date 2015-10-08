@@ -66,8 +66,9 @@ class MusicXmlFile
         'fifths': @_getFifthsAmount(bar.signatures.key), #(-7,7)
         'mode': @_getMode(bar.signatures.key) # {'minor', 'major'}
       'time':
-        'beats' : bar.signatures.time.major
-        'beat-type' : bar.signatures.time.minor
+        'beats' : bar.signatures.time.numerator
+        'beat-type' : bar.signatures.time.denominator
+      'staves': 1
       'clef':
         'sign' : bar.signatures.clef
         'line' :  @_getClefLine(bar.signatures.clef)
@@ -78,13 +79,10 @@ class MusicXmlFile
   ###
   _mapNotes: (notes) =>
     notes.map (note, i) =>
-      mappedNote =
-        duration : 1
-        voice : 1
-        type : note.figure().name
+      mappedNote = {}
 
       if note.name is "r"
-         _.assign mappedNote , {rest : null}
+         _.assign mappedNote , { rest : null }
       else
         _.assign mappedNote , {
           pitch :
@@ -92,12 +90,16 @@ class MusicXmlFile
             octave : note.name.slice(-1)
           }
 
+      _.assign mappedNote , { duration : note.duration * 256 }
+      _.assign mappedNote , { voice : 1 }
+      _.assign mappedNote , { type : note.figure().name }
+
       if note.name.charAt(1) is "#"
-        _.assign mappedNote.pitch , {alter : "1"}
+        _.assign mappedNote.pitch , { alter : "1" }
       if note.name.charAt(1) is "b"
-        _.assign mappedNote.pitch , {alter : "-1"}
+        _.assign mappedNote.pitch , { alter : "-1" }
       if note.figure().dot is true
-        _.assign mappedNote , {dot: null}
+        _.assign mappedNote , { dot: null }
       if note.tie
         mappedNote = @_appendTies(note, mappedNote)
 

@@ -14,7 +14,7 @@ A generator of *melodies* using an audio recognizer.
     tempo: 180
     signatures:
       key: "Abm"
-      time: { major: 4, minor: 4 }
+      time: { numerator: 4, denominator: 4 }
       clef: "G"
 ###
 module.exports =

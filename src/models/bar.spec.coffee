@@ -5,7 +5,7 @@ describe "Bar", ->
   describe "isComplete", ->
     it "returns true when a bar is completely filled with notes", ->
       signatures =
-        time: { major: 4, minor: 4 }
+        time: { numerator: 4, denominator: 4 }
         key: "Abm"
         clef: "G"
 
@@ -20,7 +20,7 @@ describe "Bar", ->
 
     it "returns false when a bar is incomplete", ->
       signatures =
-        time: { major: 6, minor: 8 }
+        time: { numerator: 6, denominator: 8 }
         key: "Abm"
         clef: "G"
 

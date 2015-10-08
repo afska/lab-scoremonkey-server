@@ -25,7 +25,7 @@ class MelodyController
       filePath: req.files.audio.path
       tempo: req.body.tempo
       signatures:
-        time: { major: req.body.major, minor: req.body.minor }
+        time: { numerator: req.body.major, denominator: req.body.minor }
         clef: req.body.clef
         key: req.body.key
 

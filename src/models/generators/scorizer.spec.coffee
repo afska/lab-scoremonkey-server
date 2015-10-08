@@ -5,7 +5,7 @@ shouldBeEquivalent = include("utils/shouldBeEquivalent")
 
 describe "Scorizer", ->
   signatures =
-    time: { major: 4, minor: 4 }
+    time: { numerator: 4, denominator: 4 }
     key: "Abm"
     clef: "G"
 

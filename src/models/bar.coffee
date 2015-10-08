@@ -3,7 +3,7 @@ _ = require("protolodash")
 ###
 A bar, composed by a set of *signatures* and a collection of *notes*:
   signatures = {
-    time: { major: 4, minor: 4 },
+    time: { numerator: 4, denominator: 4 },
     key: "Abm",
     clef: "G"
   }
@@ -17,4 +17,4 @@ class Bar
   Checks that the bar is completely filled with notes.
   ###
   isComplete: =>
-    @notes.sum("duration") is (@signatures.time.major / @signatures.time.minor)
+    @notes.sum("duration") is (@signatures.time.numerator / @signatures.time.denominator)
