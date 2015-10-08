@@ -20,7 +20,7 @@ class MusicalFigureDictionary
   Gets all the info of a note type, based on the *duration*.
   ###
   findByDuration: (duration) =>
-    @noteTypes.find { duration }
+    _.find @noteTypes, { duration }
 
   ###
   Gets the closest valid duration of a *duration*.
