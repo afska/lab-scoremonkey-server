@@ -16,6 +16,9 @@ class MelodyController
   Recognizes an audio file, returns the links to the MIDI and the Score.
   ###
   recognize: (req, res) =>
+    console.log "Recognizing..."
+    console.log req.body
+
     errors = @_parseAndFindErrors req
     if not _.isEmpty errors
       @_deleteFiles req
