@@ -15,16 +15,16 @@ describe "MusicXmlFile", ->
         tempo: 60
         signatures:
           time:
-            major: 4
-            minor: 4
+            numerator: 4
+            denominator: 4
           key: 'Abm'
           clef: 'F'
       bars: [
         {
           signatures:
             time:
-              major: 4
-              minor: 4
+              numerator: 4
+              denominator: 4
             key: 'Abm'
             clef: 'F'
           notes: [
@@ -58,8 +58,8 @@ describe "MusicXmlFile", ->
         {
           signatures:
             time:
-              major: 4
-              minor: 4
+              numerator: 4
+              denominator: 4
             key: 'Abm'
             clef: 'F'
           notes: [
@@ -110,6 +110,7 @@ describe "MusicXmlFile", ->
               <beats>4</beats>
               <beat-type>4</beat-type>
             </time>
+            <staves>1</staves>
             <clef>
               <sign>F</sign>
               <line>4</line>
@@ -120,7 +121,7 @@ describe "MusicXmlFile", ->
               <step>C</step>
               <octave>4</octave>
             </pitch>
-            <duration>1</duration>
+            <duration>64</duration>
             <voice>1</voice>
             <type>quarter</type>
           </note>
@@ -130,7 +131,7 @@ describe "MusicXmlFile", ->
               <octave>4</octave>
               <alter>1</alter>
             </pitch>
-            <duration>1</duration>
+            <duration>64</duration>
             <voice>1</voice>
             <type>quarter</type>
           </note>
@@ -139,7 +140,7 @@ describe "MusicXmlFile", ->
               <step>D</step>
               <octave>4</octave>
             </pitch>
-            <duration>1</duration>
+            <duration>64</duration>
             <voice>1</voice>
             <type>quarter</type>
           </note>
@@ -149,7 +150,7 @@ describe "MusicXmlFile", ->
               <octave>4</octave>
               <alter>-1</alter>
             </pitch>
-            <duration>1</duration>
+            <duration>32</duration>
             <voice>1</voice>
             <type>eighth</type>
             <tie type="start" />
@@ -166,7 +167,7 @@ describe "MusicXmlFile", ->
               <octave>4</octave>
               <alter>-1</alter>
             </pitch>
-            <duration>1</duration>
+            <duration>32</duration>
             <voice>1</voice>
             <type>eighth</type>
             <tie type="stop" />
@@ -184,7 +185,7 @@ describe "MusicXmlFile", ->
               <octave>4</octave>
               <alter>-1</alter>
             </pitch>
-            <duration>1</duration>
+            <duration>32</duration>
             <voice>1</voice>
             <type>eighth</type>
             <tie type="stop" />
@@ -194,7 +195,7 @@ describe "MusicXmlFile", ->
           </note>
           <note>
             <rest />
-            <duration>1</duration>
+            <duration>384</duration>
             <voice>1</voice>
             <type>whole</type>
             <dot />
@@ -213,7 +214,7 @@ describe "MusicXmlFile", ->
 
   it "create a MusicXML from a scorized Score", ->
     signatures =
-      time: { major: 4, minor: 4 }
+      time: { numerator: 4, denominator: 4 }
       key: "Abm"
       clef: "G"
 
@@ -245,6 +246,7 @@ describe "MusicXmlFile", ->
               <beats>4</beats>
               <beat-type>4</beat-type>
             </time>
+            <staves>1</staves>
             <clef>
               <sign>G</sign>
               <line>2</line>
@@ -255,7 +257,7 @@ describe "MusicXmlFile", ->
               <step>C</step>
               <octave>4</octave>
             </pitch>
-            <duration>1</duration>
+            <duration>192</duration>
             <voice>1</voice>
             <type>half</type>
             <dot />
@@ -266,7 +268,7 @@ describe "MusicXmlFile", ->
               <octave>4</octave>
               <alter>1</alter>
             </pitch>
-            <duration>1</duration>
+            <duration>64</duration>
             <voice>1</voice>
             <type>quarter</type>
             <notations>
@@ -283,7 +285,7 @@ describe "MusicXmlFile", ->
               <octave>4</octave>
               <alter>1</alter>
             </pitch>
-            <duration>1</duration>
+            <duration>16</duration>
             <voice>1</voice>
             <type>16th</type>
             <tie type="stop" />
@@ -296,7 +298,7 @@ describe "MusicXmlFile", ->
               <step>E</step>
               <octave>5</octave>
             </pitch>
-            <duration>1</duration>
+            <duration>192</duration>
             <voice>1</voice>
             <type>half</type>
             <dot />
@@ -310,7 +312,7 @@ describe "MusicXmlFile", ->
               <step>E</step>
               <octave>5</octave>
             </pitch>
-            <duration>1</duration>
+            <duration>48</duration>
             <voice>1</voice>
             <type>eighth</type>
             <dot />

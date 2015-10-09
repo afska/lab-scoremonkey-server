@@ -22,7 +22,7 @@ class Scorizer
   Splits the *melody* into *bars*, creating *notes*.
   ###
   _buildBars: (signatures) =>
-    length = signatures.time.major / signatures.time.minor
+    length = signatures.time.numerator / signatures.time.denominator
 
     groupNotes(@melody.notesWithBeats(), length, createTies: true).map (group) =>
       new Bar signatures, group.map (note) =>
