@@ -7,7 +7,7 @@ var options = process.argv[4];
 var settings = {
   filePath: process.argv[2],
   tempo: process.argv[3],
-  bar: { major: 4, minor: 4 },
+  bar: { numerator: 4, denominator: 4 },
   clef: "G",
   options: options != "" ? options : null
 }
