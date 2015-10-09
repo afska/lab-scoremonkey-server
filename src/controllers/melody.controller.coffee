@@ -32,7 +32,6 @@ class MelodyController
         clef: req.body.clef
         key: req.body.key
 
-
     new MelodyDetector(settings)
       .getMelody()
       .then (melody) =>

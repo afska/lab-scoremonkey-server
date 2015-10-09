@@ -24,4 +24,10 @@ class Melody
   notesWithBeats: =>
     @notes.map (note) =>
       name: note.name,
-      duration: @beatConverter.toBeats note.duration
+      duration: @_fixPrecision @beatConverter.toBeats(note.duration)
+
+  ###
+  Fix the precision of a number to 4 decimals.
+  ###
+  _fixPrecision: (duration) =>
+    Math.round(duration * 10000) / 10000
