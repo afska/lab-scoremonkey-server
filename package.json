@@ -34,7 +34,8 @@
     "mocha": "^1.20.0"
   },
   "engines": {
-    "node": ">=0.10.0"
+    "node": "0.12.x",
+    "npm": "2.11.x"
   },
   "scripts": {
     "start": "node main.js"
