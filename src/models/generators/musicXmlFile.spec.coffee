@@ -116,6 +116,15 @@ describe "MusicXmlFile", ->
               <line>4</line>
             </clef>
           </attributes>
+          <direction placement="above">
+            <direction-type>
+              <metronome>
+                <beat-unit>quarter</beat-unit>
+                <per-minute>120</per-minute>
+              </metronome>
+            </direction-type>
+            <sound tempo="120"/>
+          </direction>
           <note>
             <pitch>
               <step>C</step>
@@ -211,7 +220,7 @@ describe "MusicXmlFile", ->
     #No borrar esta línea hasta salir a producción (la uso todo el tiempo :P)
     #new musicXmlFile(scoreExample).save('/home/javier/Escritorio/testingMusic.xml')
 
-    convertedScore = new MusicXmlFile(scoreExample).convertScore()
+    convertedScore = new MusicXmlFile(scoreExample, 120).convertScore()
     expect(convertedScore).xml.to.equal(musicXmlExample);
 
 
@@ -255,6 +264,15 @@ describe "MusicXmlFile", ->
               <line>2</line>
             </clef>
           </attributes>
+          <direction placement="above">
+            <direction-type>
+              <metronome>
+                <beat-unit>quarter</beat-unit>
+                <per-minute>120</per-minute>
+              </metronome>
+            </direction-type>
+            <sound tempo="120"/>
+          </direction>
           <note>
             <pitch>
               <step>C</step>
@@ -332,7 +350,5 @@ describe "MusicXmlFile", ->
     </score-partwise>
     '
 
-    convertedScore = new MusicXmlFile(scoreExample).convertScore()
+    convertedScore = new MusicXmlFile(scoreExample, 120).convertScore()
     expect(convertedScore).xml.to.equal(musicXmlExample);
-
-

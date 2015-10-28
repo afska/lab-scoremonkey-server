@@ -10,7 +10,7 @@ A MusicXml File created from a *score*.
 module.exports =
 
 class MusicXmlFile
-  constructor: (score) ->
+  constructor: (score, tempo) ->
     @file =
       '?xml version=\"1.0\" encoding=\"UTF-8\"?' : null,
       'score-partwise' :
@@ -28,7 +28,7 @@ class MusicXmlFile
               id : 'P1'
             ,
             '#' :
-              @_mapBars(score)
+              @_mapBars(score, tempo)
 
   ###
   Converts the Score into a Xml.
@@ -45,21 +45,41 @@ class MusicXmlFile
   ###
   Maps the bars into XML notation.
   ###
-  _mapBars: (score) =>
+  _mapBars: (score, tempo) =>
 
-    measures = score.bars.map (bar, i) =>
+    direction = direction:
       "@":
-        "number" : i + 1
-      "#" :
-        "attributes" : if i is 0
-          @_getAtributes bar
-        "note" : [ @_mapNotes bar.notes ]
+        "placement": "above"
+      "#":
+        "direction-type":
+          "metronome":
+            "#":
+              "beat-unit": "quarter"
+              "per-minute": tempo
+        "sound":
+          "@":
+            "tempo": tempo
 
     barline = barline:
       "@":
         "location": "right"
       "#" :
         "bar-style": "light-heavy"
+
+    measures = score.bars.map (bar, i) =>
+      measure = {
+        "@":
+          number : i + 1
+        "#" :
+          attributes : if i is 0
+            @_getAtributes bar
+      }
+
+      if i is 0
+        _.assign measure["#"] , direction
+
+      _.assign measure["#"] , { note : [ @_mapNotes bar.notes ] }
+      measure
 
     _.assign measures[measures.length-1]["#"] , barline
 
