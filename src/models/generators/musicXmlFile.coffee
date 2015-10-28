@@ -3,6 +3,7 @@ fs = promisify require("fs")
 o2x = require('object-to-xml')
 _ = require("protolodash")
 Note = include("models/note")
+NoteDictionary = include("models/converters/noteDictionary")
 
 ###
 A MusicXml File created from a *score*.
@@ -10,7 +11,7 @@ A MusicXml File created from a *score*.
 module.exports =
 
 class MusicXmlFile
-  constructor: (score) ->
+  constructor: (score, tempo) ->
     @file =
       '?xml version=\"1.0\" encoding=\"UTF-8\"?' : null,
       'score-partwise' :
@@ -28,7 +29,7 @@ class MusicXmlFile
               id : 'P1'
             ,
             '#' :
-              @_mapBars(score)
+              @_mapBars(score, tempo)
 
   ###
   Converts the Score into a Xml.
@@ -45,15 +46,45 @@ class MusicXmlFile
   ###
   Maps the bars into XML notation.
   ###
-  _mapBars: (score) =>
-    measure: [ score.bars.map (bar, i) =>
+  _mapBars: (score, tempo) =>
+
+    direction = direction:
       "@":
-        "number" : i + 1
+        "placement": "above"
+      "#":
+        "direction-type":
+          "metronome":
+            "#":
+              "beat-unit": "quarter"
+              "per-minute": tempo
+        "sound":
+          "@":
+            "tempo": tempo
+
+    barline = barline:
+      "@":
+        "location": "right"
       "#" :
-        "attributes" : if i is 0
-          @_getAtributes bar
-        "note" : [ @_mapNotes bar.notes ]
-    ]
+        "bar-style": "light-heavy"
+
+    measures = score.bars.map (bar, i) =>
+      measure = {
+        "@":
+          number : i + 1
+        "#" :
+          attributes : if i is 0
+            @_getAtributes bar
+      }
+
+      if i is 0
+        _.assign measure["#"] , direction
+
+      _.assign measure["#"] , { note : [ @_mapNotes(bar.notes, bar.signatures.key) ] }
+      measure
+
+    _.assign measures[measures.length-1]["#"] , barline
+
+    { measure: measures }
 
 
   ###
@@ -77,12 +108,15 @@ class MusicXmlFile
   ###
   Maps the notes into a MusicXML object.
   ###
-  _mapNotes: (notes) =>
+  _mapNotes: (notes, key) =>
     notes.map (note, i) =>
       mappedNote = {}
 
+      if @_getFifthsAmount(key) < 0 and note.name.charAt(1) is "#"
+        note.name = NoteDictionary.renameToFlat(note.name)
+
       if note.name is "r"
-         _.assign mappedNote , { rest : null }
+        _.assign mappedNote , { rest : null }
       else
         _.assign mappedNote , {
           pitch :
