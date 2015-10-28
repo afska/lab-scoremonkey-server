@@ -200,6 +200,9 @@ describe "MusicXmlFile", ->
             <type>whole</type>
             <dot />
           </note>
+          <barline location="right">
+            <bar-style>light-heavy</bar-style>
+          </barline>
         </measure>
       </part>
     </score-partwise>
@@ -321,6 +324,9 @@ describe "MusicXmlFile", ->
               <tied type="stop" />
             </notations>
           </note>
+          <barline location="right">
+            <bar-style>light-heavy</bar-style>
+          </barline>
         </measure>
       </part>
     </score-partwise>

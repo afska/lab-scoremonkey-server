@@ -46,14 +46,24 @@ class MusicXmlFile
   Maps the bars into XML notation.
   ###
   _mapBars: (score) =>
-    measure: [ score.bars.map (bar, i) =>
+
+    measures = score.bars.map (bar, i) =>
       "@":
         "number" : i + 1
       "#" :
         "attributes" : if i is 0
           @_getAtributes bar
         "note" : [ @_mapNotes bar.notes ]
-    ]
+
+    barline = barline:
+      "@":
+        "location": "right"
+      "#" :
+        "bar-style": "light-heavy"
+
+    _.assign measures[measures.length-1]["#"] , barline
+
+    { measure: measures }
 
 
   ###
