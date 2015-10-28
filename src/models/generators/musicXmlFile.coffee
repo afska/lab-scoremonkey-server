@@ -3,6 +3,7 @@ fs = promisify require("fs")
 o2x = require('object-to-xml')
 _ = require("protolodash")
 Note = include("models/note")
+NoteDictionary = include("models/converters/noteDictionary")
 
 ###
 A MusicXml File created from a *score*.
@@ -78,7 +79,7 @@ class MusicXmlFile
       if i is 0
         _.assign measure["#"] , direction
 
-      _.assign measure["#"] , { note : [ @_mapNotes bar.notes ] }
+      _.assign measure["#"] , { note : [ @_mapNotes(bar.notes, bar.signatures.key) ] }
       measure
 
     _.assign measures[measures.length-1]["#"] , barline
@@ -107,12 +108,15 @@ class MusicXmlFile
   ###
   Maps the notes into a MusicXML object.
   ###
-  _mapNotes: (notes) =>
+  _mapNotes: (notes, key) =>
     notes.map (note, i) =>
       mappedNote = {}
 
+      if @_getFifthsAmount(key) < 0 and note.name.charAt(1) is "#"
+        note.name = NoteDictionary.renameToFlat(note.name)
+
       if note.name is "r"
-         _.assign mappedNote , { rest : null }
+        _.assign mappedNote , { rest : null }
       else
         _.assign mappedNote , {
           pitch :

@@ -136,9 +136,9 @@ describe "MusicXmlFile", ->
           </note>
           <note>
             <pitch>
-              <step>C</step>
+              <step>D</step>
               <octave>4</octave>
-              <alter>1</alter>
+              <alter>-1</alter>
             </pitch>
             <duration>64</duration>
             <voice>1</voice>
@@ -285,9 +285,9 @@ describe "MusicXmlFile", ->
           </note>
           <note>
             <pitch>
-              <step>C</step>
+              <step>D</step>
               <octave>4</octave>
-              <alter>1</alter>
+              <alter>-1</alter>
             </pitch>
             <duration>64</duration>
             <voice>1</voice>
@@ -302,9 +302,9 @@ describe "MusicXmlFile", ->
           <attributes />
           <note>
             <pitch>
-              <step>C</step>
+              <step>D</step>
               <octave>4</octave>
-              <alter>1</alter>
+              <alter>-1</alter>
             </pitch>
             <duration>16</duration>
             <voice>1</voice>

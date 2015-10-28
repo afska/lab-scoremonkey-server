@@ -50,6 +50,21 @@ class NoteDictionary
     @notes[index] || @get "r"
 
   ###
+  Renames a note with a sharp to a note with a flat.
+  ###
+  renameToFlat: (name) =>
+    sharpToFlat =
+      {
+        'c#': "db",
+        'd#': "eb",
+        'f#': "gb",
+        'g#': "ab",
+        'a#': "bb"
+      }
+    sharpToFlat[name.slice(0, 2)] + name.charAt(2)
+
+
+  ###
   Frequency of a *name*.
     440 * (2^(1/12))^semitonesFromA4
   ###
