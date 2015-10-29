@@ -16,6 +16,7 @@ A generator of *melodies* using an audio recognizer.
       key: "Abm"
       time: { numerator: 4, denominator: 4 }
       clef: "G"
+    [options]: "-p mcomb"
 ###
 module.exports =
 

@@ -31,6 +31,7 @@ class MelodyController
         time: { numerator: req.body.major, denominator: req.body.minor }
         clef: req.body.clef
         key: req.body.key
+      options: req.body.options
 
     new MelodyDetector(settings)
       .getMelody()
