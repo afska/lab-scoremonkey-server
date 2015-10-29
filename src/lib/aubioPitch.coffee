@@ -8,7 +8,7 @@ A library that recognizes notes in a file stored in *path*.
 module.exports =
 
 class AubioPitch
-  constructor: (@path, @options = "-p mcomb") ->
+  constructor: (@path, @options = "-p default") ->
     @AUBIO_PATH = process.env.AUBIO_PATH || "lib"
 
   ###
